@@ -104,6 +104,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('region') }}">Regiones</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('estadisticas') }}">Estadísticas</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">Usuarios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('ingresos.index') }}">Ingresos</a></li>
                     <li class="nav-item dropdown ms-3">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {{ auth()->user()->name }} <br>{{auth()->user()->role}}
@@ -144,7 +145,9 @@
             <tr>
               <th>Nombre</th>
               <th>Correo Electrónico</th>
+              <th>Rol</th>
               <th>Acciones</th>
+
             </tr>
           </thead>
           <tbody>
@@ -152,6 +155,7 @@
               <tr>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
+                <td>{{ $user->role }}</td>
                 <td class="text-center">
                   <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm me-1">
                     <i class="bi bi-pencil-square"></i> Editar
@@ -172,7 +176,7 @@
             @endforelse
           </tbody>
         </table>
-        <table class="table table-bordered table-striped mt-3 align-middle ">
+        <!-- <table class="table table-bordered table-striped mt-3 align-middle ">
 <thead class="text-center">
             <tr>
               <th>Nombre</th>
@@ -182,7 +186,7 @@
               <th>Fecha de Acceso</th>
             </tr>
           </thead>
-@foreach($logs as $log)
+        @foreach($logs as $log)
       <tr>
       <td>{{ $log->user->name }}</td>
           <td>{{ $log->ip_address }}</td>
@@ -190,7 +194,7 @@
           <td>{{ $log->browser }}</td>
           <td>{{ $log->created_at }}</td>
       </tr>
-  @endforeach 
+  @endforeach  -->
   </table>
       </div>
     </div>

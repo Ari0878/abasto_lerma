@@ -133,6 +133,13 @@
                         <label for="password_confirmation" class="form-label">Confirmar Contraseña</label>
                         <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" required>
                     </div>
+                    <div class="mb-3">
+                        <label for="role" class="form-label">Rol</label>
+                        <select name="role" id="role" class="form-select" required>
+                            <option value="usuario" {{ old('role') == 'usuario' ? 'selected' : '' }}>Usuario</option>
+                            <option value="administrador" {{ old('role') == 'administrador' ? 'selected' : '' }}>Administrador</option>
+                        </select>
+                    </div>
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button type="reset" class="btn btn-secondary me-md-2">

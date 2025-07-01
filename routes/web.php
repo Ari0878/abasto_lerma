@@ -9,6 +9,8 @@ use App\Http\Controllers\EstadisticasController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\IngresoController;
+
 
 // Página pública
 Route::get('/', function () {
@@ -86,12 +88,15 @@ Route::middleware(['auth', 'nocache', 'role:administrador'])->group(function (){
     Route::put('/users/{user}', [AdminUserController::class, 'update'])->name('users.update');
     Route::delete('/users/{user}', [AdminUserController::class, 'destroy'])->name('users.destroy');
 
+    Route::get('/ingresos', [IngresoController::class, 'index'])->name('ingresos.index');
+    Route::get('/ingresos/create', [IngresoController::class, 'create'])->name('ingresos.create');
+    Route::post('/ingresos', [IngresoController::class, 'store'])->name('ingresos.store');
+    Route::get('/ingresos/comparar', [IngresoController::class, 'comparar'])->name('ingresos.comparar');
 });
 
 
 // RUTAS PARA USUARIOS REGULARES
-Route::middleware(['auth', 'nocache', 'role:usuario | administrador'])->group(function () {
-    // Vista de usuario
+Route::middleware(['auth', 'nocache', 'role:usuario,administrador'])->group(function () {
     Route::get('/usuario', function () {
         return view('admin.welcome');
     })->name('usuario.welcome');
@@ -104,4 +109,5 @@ Route::middleware(['auth', 'nocache', 'role:usuario | administrador'])->group(fu
     Route::get('/expediente/search', [ExpedienteController::class, 'search'])->name('expediente.search');
 
 });
+
 

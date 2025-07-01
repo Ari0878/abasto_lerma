@@ -146,6 +146,13 @@
             <label class="form-label">Confirmar Contraseña</label>
             <input type="password" name="password_confirmation" class="form-control">
           </div>
+          <div class="col-md-6">
+          <label class="form-label">Rol</label>
+          <select name="role" class="form-select" required>
+              <option value="usuario" {{ $user->role == 'usuario' ? 'selected' : '' }}>Usuario</option>
+              <option value="administrador" {{ $user->role == 'administrador' ? 'selected' : '' }}>Administrador</option>
+          </select>
+      </div>
 
           <div class="col-12 d-flex justify-content-end mt-4">
             <button type="reset" class="btn btn-secondary me-2">

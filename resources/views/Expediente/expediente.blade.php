@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <style>
+        <style>
         :root {
             --edomex-green:rgb(224, 10, 10);
             --edomex-red: #E4002B;
@@ -22,7 +22,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .header-gobierno {
-         background: rgb(236, 39, 39)100%; /* Verde institucional */
+         background: linear-gradient(135deg, var(--edomex-green) 0%, rgb(241, 9, 9)100%); /* Verde institucional */
         border-bottom: 4px solid #FFD700; /* Dorado */
         }
 
@@ -103,6 +103,12 @@
         .pagination .page-link {
             color: var(--edomex-green);
         }
+        .pagination .page-item.active .page-link {
+    background-color: var(--edomex-green);
+    border-color: var(--edomex-green);
+    color: white !important; /* ← Asegura que el texto sea blanco */
+}
+
         @media (max-width: 768px) {
     .navbar-nav {
         flex-direction: column;
@@ -140,12 +146,9 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('region') }}">Regiones</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('estadisticas') }}">Estadísticas</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">Usuarios</a></li>
+                              <li class="nav-item"><a class="nav-link" href="{{ route('ingresos.index') }}">Ingresos</a></li>
                     <li class="nav-item dropdown ms-3">
-                        
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <!-- <div class="me-2"> -->
-                                        <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
-                                    <!-- </div> -->
                 {{ auth()->user()->name }} <br>{{auth()->user()->role}}
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -461,12 +464,10 @@
         });
     });
 </script>
-<script>
-    window.addEventListener('pageshow', function(event) {
+<script>    window.addEventListener('pageshow', function(event) {
         if (event.persisted) {
             window.location.reload();
         }
-    });
-</script>
+    });</script>
 </body>
 </html>
