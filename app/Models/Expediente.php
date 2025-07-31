@@ -9,23 +9,31 @@ class Expediente extends Model
 {
     use HasFactory;
 
-    protected $table ='expediente';
-    protected $primaryKey ='id';
+    // Nombre de la tabla (en caso de no seguir la convención pluralizada)
+    protected $table = 'expediente';
+
+    // Clave primaria de la tabla
+    protected $primaryKey = 'id';
+
+    // Campos que pueden ser asignados de forma masiva
     protected $fillable = [    
-    'folio',
-    'ap',
-    'am',
-    'nombre',
-    'localizacion',
-    'giro',
-    'estado',
-    'archivo',
-    'tipo_expe',
-    'region_id',
+        'folio',
+        'ap',             // Apellido paterno
+        'am',             // Apellido materno
+        'nombre',
+        'localizacion',
+        'giro',
+        'estado',
+        'archivo',
+        'tipo_expe',
+        'region_id',
     ];
 
+    /**
+     * Relación: un expediente pertenece a una región
+     */
     public function region()
-{
-    return $this->belongsTo(Region::class);
-}
+    {
+        return $this->belongsTo(Region::class);
+    }
 }

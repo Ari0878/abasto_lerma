@@ -1,137 +1,423 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Administradores - Gobierno del Estado de México</title>
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Escudo_de_Lerma_%28estado_de_Mexico%29.svg/1076px-Escudo_de_Lerma_%28estado_de_Mexico%29.svg.png" type="image/png">
 
-  <!-- Bootstrap CSS & Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <style>
-      :root {
-        --edomex-blue: rgb(224, 10, 10);
-        --edomex-red: #E4002B;
+  <style>
+    :root {
+      --edomex-green:rgb(236, 29, 29);
+        --edomex-green-dark:rgba(233, 9, 9, 0.93);
+        --edomex-green-light: #f9e8e8;
+        --edomex-white: #FFFFFF;
         --edomex-gold: #FFD700;
-      }
+        --edomex-gray: #6c757d;
+        --edomex-light: #f8f9fa;
+        --shadow-light: 0 2px 15px rgba(0,0,0,0.08);
+        --shadow-medium: 0 8px 30px rgba(0,0,0,0.12);
+        --shadow-heavy: 0 15px 50px rgba(0,0,0,0.15);
+        --gradient-bg: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        --gradient-green: linear-gradient(135deg, var(--edomex-green) 0%, var(--edomex-green-dark) 100%);
+    }
 
-      body {
-        background-color: #f8f9fa;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      }
+    * {
+      transition: all 0.3s ease;
+    }
 
-      .header {
-        background: linear-gradient(135deg, var(--edomex-blue) 0%, rgba(241, 9, 9, 0.68) 100%);
-        color: white;
-        padding: 1rem 0;
-        border-bottom: 5px solid var(--edomex-gold);
-      }
+    body {
+      background: var(--edomex-light);
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      position: relative;
+      color: #333;
+    }
 
-      .logo {
-        height: 60px;
-        margin-right: 15px;
-      }
+    /* ===== HEADER MEJORADO ===== */
+    .header-gobierno {
+      background: var(--gradient-green);
+      border-bottom: 4px solid var(--edomex-gold);
+      box-shadow: var(--shadow-medium);
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+    }
 
-      .title-container {
-        border-left: 3px solid var(--edomex-gold);
-        padding-left: 15px;
-      }
-      .navbar-dark .navbar-nav .nav-link {
-          color: #fff;
-          font-weight: 500;
-          margin-left: 1rem;
-          }
-          .header-gobierno {
-          background: linear-gradient(135deg, var(--edomex-blue) 0%, rgba(241, 9, 9, 0.68) 100%); /* Verde institucional */
-          border-bottom: 4px solid #FFD700; /* Dorado */
-          }
-          .navbar-dark .navbar-nav .nav-link:hover {
-          color: #FFD700;
-          }
-          
-      .btn-edomex {
-        background-color: var(--edomex-blue);
-        color: white;
-        border: none;
-      }
+    .header-container {
+      padding: 0.5rem 2rem;
+    }
 
-      .btn-edomex:hover {
-        background-color: rgb(224, 10, 10);
-        color: white;
-      }
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
 
-      .btn-sm {
+    .logo {
+      height: 60px;
+      filter: brightness(0) invert(1);
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .header-titles {
+      color: white;
+    }
+
+    .header-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+      letter-spacing: 0.5px;
+    }
+
+    .header-subtitle {
+      font-size: 0.85rem;
+      opacity: 0.9;
+      font-weight: 400;
+    }
+
+    /* Navbar mejorado */
+    .navbar-nav .nav-item {
+      margin: 0 0.3rem;
+    }
+
+    .navbar-nav .nav-link {
+      color: white;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+      background: rgba(255,255,255,0.15);
+      color: var(--edomex-gold);
+    }
+
+    .navbar-nav .nav-link i {
+      font-size: 1.1rem;
+    }
+
+    /* Dropdown mejorado */
+    .dropdown-toggle::after {
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+
+    .dropdown-menu {
+      border: none;
+      border-radius: 10px;
+      box-shadow: var(--shadow-heavy);
+      padding: 0.5rem 0;
+      margin-top: 0.5rem;
+    }
+
+    .dropdown-item {
+      padding: 0.5rem 1.5rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .dropdown-item:hover {
+      background: var(--edomex-green-light);
+      color: var(--edomex-green-dark);
+    }
+
+    .dropdown-divider {
+      margin: 0.5rem 0;
+    }
+
+    /* ===== CONTENIDO PRINCIPAL ===== */
+    .main-content {
+      padding: 2rem 0 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Card mejorada */
+    .card-modern {
+      border: none;
+      border-radius: 16px;
+      box-shadow: var(--shadow-medium);
+      overflow: hidden;
+    }
+
+    .card-header-modern {
+      background: white;
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .card-header-modern::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-green);
+    }
+
+    .card-title-modern {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--edomex-green-dark);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    /* Botón mejorado */
+    .btn-edomex {
+      background: var(--gradient-green);
+      color: white;
+      font-weight: 600;
+      padding: 0.7rem 1.5rem;
+      border-radius: 50px;
+      border: none;
+      box-shadow: var(--shadow-light);
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+
+    .btn-edomex:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-medium);
+      color: white;
+      background: linear-gradient(135deg, var(--edomex-green-dark) 0%, var(--edomex-green) 100%);
+    }
+
+    /* Tabla mejorada */
+    .table-modern {
+      border-collapse: separate;
+      border-spacing: 0;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      background-color: #fff;
+      box-shadow: var(--shadow-light);
+    }
+
+    .table-modern thead {
+      background: var(--gradient-green);
+    }
+
+    .table-modern thead th {
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-bottom: none;
+    }
+
+    .table-modern tbody tr {
+      transition: background-color 0.3s ease;
+    }
+
+    .table-modern tbody tr:hover {
+      background-color: var(--edomex-green-light);
+    }
+
+    .table-modern tbody td {
+      padding: 1rem;
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    /* Botones de acción */
+    .btn-action {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-edit {
+      background-color: #ffc107;
+      color: #212529;
+    }
+
+    .btn-edit:hover {
+      background-color: #e0a800;
+      transform: translateY(-2px);
+    }
+
+    .btn-delete {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .btn-delete:hover {
+      background-color: #c82333;
+      transform: translateY(-2px);
+    }
+
+    /* Alertas mejoradas */
+    .alert {
+      border-radius: 12px;
+      border: none;
+      padding: 1rem 1.5rem;
+      font-weight: 500;
+      box-shadow: var(--shadow-light);
+    }
+
+    /* Efecto de onda en el fondo */
+    .wave-bg {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 20vh;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="%23e00a0a"></path><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".1" fill="%23e00a0a"></path><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" opacity=".05" fill="%23e00a0a"></path></svg>');
+      background-size: cover;
+      background-repeat: no-repeat;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .header-container {
+        padding: 0.5rem 1rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .table-modern thead th,
+      .table-modern tbody td {
+        padding: 0.8rem;
+      }
+      
+      .btn-action {
+        padding: 0.4rem 0.8rem;
         font-size: 0.85rem;
       }
+    }
 
-      .card-shadow {
-        box-shadow: 0 4px 8px rgba(3, 142, 26, 0.3);
-        border-radius: 8px;
-        border: none;
+    @media (max-width: 576px) {
+      .header-title {
+        font-size: 1.2rem;
       }
-
-      table thead {
-        background-color: #e9f7ed;
+      
+      .header-subtitle {
+        font-size: 0.75rem;
       }
-
-      .table td, .table th {
-        vertical-align: middle;
+      
+      .logo {
+        height: 50px;
       }
-    </style>
+      
+      .card-title-modern {
+        font-size: 1.2rem;
+      }
+      
+      .btn-edomex {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<!-- Encabezado institucional -->
-<header class="header-gobierno mb-4">
-  <div class="container">
-    <div class="d-flex align-items-center">
-      <img src="https://lerma.gob.mx/wp-content/uploads/logo_lerma.svg" alt="Gobierno del Estado de México" class="logo">
-      <div class="title-container">
-        <h1 class="h4 mb-0">Administradores del Sistema</h1>
-        <small>Abasto y Comercio</small>
+<!-- Header Mejorado -->
+<header class="header-gobierno">
+  <div class="container-fluid header-container">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="logo-container">
+        <img src="https://lerma.gob.mx/wp-content/uploads/logo_lerma.svg" alt="Gobierno del Estado de México" class="logo" />
+        <div class="header-titles d-none d-md-block">
+          <div class="header-title">Sistema de Gestión de Expedientes</div>
+          <div class="header-subtitle">Dirección de Abasto y Comercio</div>
+        </div>
       </div>
-    </div>
-    <nav class="navbar navbar-expand-md navbar-dark">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navGob" aria-controls="navGob" aria-expanded="false" aria-label="Menú">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navGob">
-                <ul class="navbar-nav ms-auto">
 
-                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.welcome') }}">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('expediente') }}">Expediente</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('region') }}">Regiones</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('estadisticas') }}">Estadísticas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">Usuarios</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('ingresos.index') }}">Ingresos</a></li>
-                    <li class="nav-item dropdown ms-3">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {{ auth()->user()->name }} <br>{{auth()->user()->role}}
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="dropdown-item">Cerrar sesión</button>
-                        </form>
-                    </li>
-                </ul>
+      <nav class="navbar navbar-expand-md navbar-dark p-0">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navGob" aria-controls="navGob" aria-expanded="false" aria-label="Menú">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navGob">
+          <ul class="navbar-nav align-items-center">
+          <li class="nav-item"><a class="nav-link" href="{{ route('admin.welcome') }}"><i class="bi bi-house-door"></i> Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('expediente') }}"><i class="bi bi-folder"></i> Expediente</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('region') }}"><i class="bi bi-geo-alt"></i> Regiones</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('estadisticas') }}"><i class="bi bi-bar-chart"></i> Estadísticas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}"><i class="bi bi-people"></i> Usuarios</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="{{ route('visitas.index') }}"><i class="bi bi-person-lines-fill"></i> Visitas</a></li>
+            
+            <li class="nav-item dropdown ms-2">
+              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle me-1"></i>
+                <span class="d-none d-lg-inline">{{ auth()->user()->name }}</span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li class="px-3 py-2 text-center border-bottom">
+                  <strong>{{ auth()->user()->name }}</strong><br>
+                  <small class="text-muted">{{ ucfirst(auth()->user()->role) }}</small>
+                </li>
+                <li>
+                  <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="dropdown-item">
+                      <i class="bi bi-box-arrow-right me-2"></i> Cerrar sesión
+                    </button>
+                  </form>
+                </li>
+              </ul>
             </li>
-                </ul>
-            </div>
-        </nav>
+          </ul>
+        </div>
+      </nav>
+    </div>
   </div>
 </header>
 
-<!-- Contenido -->
-<div class="container mb-5">
-  <div class="card card-shadow">
-    <div class="card-header bg-white d-flex justify-content-between align-items-center">
-      <h2 class="h5 text-primary mb-0"><i class="bi bi-people-fill me-2"></i>Lista de Administradores</h2>
-      <a href="{{ route('users.create') }}" class="btn btn-edomex">
-        <i class="bi bi-plus-circle me-1"></i> Crear nuevo
-      </a>
+<!-- Fondo de onda decorativo -->
+<div class="wave-bg"></div>
+
+<!-- Contenido Principal -->
+<div class="container main-content">
+  <div class="card card-modern mb-4">
+    <div class="card-header-modern">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2 class="card-title-modern">
+          <i class="bi bi-people-fill"></i>
+          Lista de Administradores
+        </h2>
+        <a href="{{ route('users.create') }}" class="btn-edomex">
+          <i class="bi bi-plus-circle me-1"></i> Nuevo usuario
+        </a>
+      </div>
     </div>
 
     <div class="card-body">
@@ -140,14 +426,13 @@
       @endif
 
       <div class="table-responsive">
-        <table class="table table-bordered table-striped mt-3 align-middle">
+        <table class="table-modern mb-0">
           <thead class="text-center">
             <tr>
               <th>Nombre</th>
               <th>Correo Electrónico</th>
               <th>Rol</th>
               <th>Acciones</th>
-
             </tr>
           </thead>
           <tbody>
@@ -157,55 +442,54 @@
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->role }}</td>
                 <td class="text-center">
-                  <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm me-1">
-                    <i class="bi bi-pencil-square"></i> Editar
-                  </a>
-                  <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline-block;">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que quieres eliminar?')">
-                      <i class="bi bi-trash3"></i> Eliminar
-                    </button>
-                  </form>
+                  <div class="d-flex justify-content-center gap-2">
+                    <a href="{{ route('users.edit', $user->id) }}" class="btn-action btn-edit">
+                      <i class="bi bi-pencil-square"></i> Editar
+                    </a>
+                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline-block;">
+                      @csrf
+                      @method('DELETE')
+                      <button class="btn-action btn-delete" onclick="return confirm('¿Seguro que quieres eliminar este usuario?')">
+                        <i class="bi bi-trash3"></i> Eliminar
+                      </button>
+                    </form>
+                  </div>
                 </td>
               </tr>
             @empty
               <tr>
-                <td colspan="3" class="text-center">No hay administradores registrados.</td>
+                <td colspan="4" class="text-center py-4">No hay administradores registrados.</td>
               </tr>
             @endforelse
           </tbody>
         </table>
-        <!-- <table class="table table-bordered table-striped mt-3 align-middle ">
-<thead class="text-center">
-            <tr>
-              <th>Nombre</th>
-              <th>Ip_address</th>
-              <th>Plataforma</th>
-              <th>Browser</th>
-              <th>Fecha de Acceso</th>
-            </tr>
-          </thead>
-        @foreach($logs as $log)
-      <tr>
-      <td>{{ $log->user->name }}</td>
-          <td>{{ $log->ip_address }}</td>
-          <td>{{ $log->platform }}</td>
-          <td>{{ $log->browser }}</td>
-          <td>{{ $log->created_at }}</td>
-      </tr>
-  @endforeach  -->
-  </table>
       </div>
     </div>
   </div>
 </div>
-<script>    window.addEventListener('pageshow', function(event) {
-        if (event.persisted) {
-            window.location.reload();
-        }
-    });</script>
-<!-- Bootstrap JS -->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  window.addEventListener('pageshow', function(event) {
+    if (event.persisted) {
+      window.location.reload();
+    }
+  });
+
+  // Animación para las filas de la tabla
+  document.addEventListener('DOMContentLoaded', function() {
+    const rows = document.querySelectorAll('.table-modern tbody tr');
+    rows.forEach((row, index) => {
+      row.style.opacity = '0';
+      row.style.transform = 'translateY(20px)';
+      row.style.transition = 'all 0.5s ease';
+      
+      setTimeout(() => {
+        row.style.opacity = '1';
+        row.style.transform = 'translateY(0)';
+      }, 100 * index);
+    });
+  });
+</script>
 </body>
 </html>

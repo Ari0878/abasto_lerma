@@ -2,19 +2,17 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Escudo_de_Lerma_%28estado_de_Mexico%29.svg/1076px-Escudo_de_Lerma_%28estado_de_Mexico%29.svg.png" type="image/png">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Regiones - Gobierno del Estado de México</title>
+    <title>Editar Visita - Abasto y Comercio</title>
 
     <!-- Bootstrap CSS & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    
     <style>
         :root {
-            --edomex-green:rgb(236, 29, 29);
+      --edomex-green:rgb(236, 29, 29);
       --edomex-green-dark:rgba(233, 9, 9, 0.93);
       --edomex-green-light: #f9e8e8;
       --edomex-white: #FFFFFF;
@@ -224,82 +222,32 @@
             color: white;
         }
 
-        /* Tabla mejorada */
-        .table-modern {
-            border-collapse: separate;
-            border-spacing: 0;
-            width: 100%;
-            border-radius: 12px;
-            overflow: hidden;
-            background-color: #fff;
-            box-shadow: var(--shadow-light);
+        /* Formulario mejorado */
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow-medium);
         }
 
-        .table-modern thead {
-            background: var(--gradient-green);
-        }
-
-        .table-modern thead th {
-            color: white;
-            padding: 1rem;
-            text-align: left;
-            font-size: 0.95rem;
+        .form-label {
             font-weight: 600;
-            border-bottom: none;
+            color: var(--edomex-green-dark);
+            margin-bottom: 0.5rem;
         }
 
-        .table-modern tbody tr {
-            transition: background-color 0.3s ease;
+        .form-control, .form-select {
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
         }
 
-        .table-modern tbody tr:hover {
-            background-color: var(--edomex-green-light);
-        }
-
-        .table-modern tbody td {
-            padding: 1rem;
-            font-size: 0.95rem;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            vertical-align: middle;
-        }
-
-        /* Badges */
-        .badge-completo {
-            background-color: #30B43B;
-            color: white;
-        }
-        .badge-incompleto {
-            background-color: #E4002B;
-            color: white;
-        }
-
-        /* Botones de acción */
-        .action-btn {
-            width: 36px;
-            height: 36px;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            margin: 0 2px;
-            background-color: #f8f9fa;
-            transition: all 0.2s;
-            border: 1px solid transparent;
-        }
-
-        .action-btn:hover {
-            background-color: #e9ecef;
-            border-color: #ced4da;
-            transform: translateY(-2px);
-        }
-
-        /* Alertas mejoradas */
-        .alert {
-            border-radius: 12px;
-            border: none;
-            padding: 1rem 1.5rem;
-            font-weight: 500;
-            box-shadow: var(--shadow-light);
+        .form-control:focus, .form-select:focus {
+            border-color: var(--edomex-green);
+            box-shadow: 0 0 0 0.25rem rgba(236, 29, 29, 0.25);
         }
 
         /* Efecto de onda en el fondo */
@@ -324,14 +272,8 @@
         }
 
         @media (max-width: 768px) {
-            .table-modern thead th,
-            .table-modern tbody td {
-                padding: 0.8rem;
-            }
-            
-            .action-btn {
-                width: 32px;
-                height: 32px;
+            .form-container {
+                padding: 1.5rem;
             }
         }
 
@@ -356,6 +298,10 @@
                 padding: 0.6rem 1rem;
                 font-size: 0.9rem;
             }
+            
+            .form-container {
+                padding: 1rem;
+            }
         }
     </style>
 </head>
@@ -379,12 +325,13 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navGob">
                     <ul class="navbar-nav align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.welcome') }}"><i class="bi bi-house-door"></i> Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.welcome') }}"><i class="bi bi-house-door"></i> Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('expediente') }}"><i class="bi bi-folder"></i> Expediente</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('region') }}"><i class="bi bi-geo-alt"></i> Regiones</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('estadisticas') }}"><i class="bi bi-bar-chart"></i> Estadísticas</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}"><i class="bi bi-people"></i> Usuarios</a></li>
                         <li class="nav-item"><a class="nav-link active" href="{{ route('visitas.index') }}"><i class="bi bi-person-lines-fill"></i> Visitas</a></li>
+                        
                         <li class="nav-item dropdown ms-2">
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-person-circle me-1"></i>
@@ -422,11 +369,11 @@
         <div class="card-header-modern">
             <div class="d-flex justify-content-between align-items-center">
                 <h2 class="card-title-modern">
-                    <i class="bi bi-geo-alt-fill"></i>
-                    Regiones Registradas
+                    <i class="bi bi-pencil-square"></i>
+                    Editar Visita
                 </h2>
-                <a href="{{ route('region_alta') }}" class="btn-edomex">
-                    <i class="bi bi-plus-lg me-1"></i> Nueva Región
+                <a href="{{ route('visitas.index') }}" class="btn-edomex">
+                    <i class="bi bi-arrow-left me-1"></i> Regresar
                 </a>
             </div>
         </div>
@@ -438,48 +385,73 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
                 </div>
             @endif
+            
+            @if($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i> Por favor corrige los errores en el formulario.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                </div>
+            @endif
 
-            <!-- Tabla responsiva -->
-            <div class="table-responsive">
-                <table class="table-modern mb-0">
-                    <thead>
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th>Número de Región</th>
-                            <th>Nombre</th>
-                            <th class="text-center">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($regiones as $region)
-                            <tr>
-                                <td class="text-center">{{ $region->id }}</td>
-                                <td>{{ $region->numero_region }}</td>
-                                <td>{{ $region->nombre }}</td>
-                                <td class="text-center">
-                                    <div class="d-flex justify-content-center">
-                                        <a href="{{ route('region_detalle', ['id' => $region->id]) }}"
-                                           class="action-btn btn-outline-primary"
-                                           data-bs-toggle="tooltip" title="Ver detalles">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-                                        <a href="{{ route('region_editar', ['id' => $region->id]) }}"
-                                           class="action-btn btn-outline-warning mx-2"
-                                           data-bs-toggle="tooltip" title="Editar">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-                                        <a href="{{ route('region_borrar', ['id' => $region->id]) }}"
-                                           class="action-btn btn-outline-danger"
-                                           onclick="return confirm('¿Está seguro de eliminar esta región?')"
-                                           data-bs-toggle="tooltip" title="Eliminar">
-                                            <i class="bi bi-trash"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+            <div class="form-container">
+                <form action="{{ route('visitas.update', $visita->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    
+                    <div class="mb-4">
+                        <label for="fecha" class="form-label">Fecha</label>
+                        <input type="date" name="fecha" class="form-control @error('fecha') is-invalid @enderror" 
+                               value="{{ old('fecha', $visita->fecha) }}" required>
+                        @error('fecha')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="nombre_completo" class="form-label">Nombre Completo</label>
+                        <input type="text" name="nombre_completo" class="form-control @error('nombre_completo') is-invalid @enderror" 
+                               value="{{ old('nombre_completo', $visita->nombre_completo) }}" required>
+                        @error('nombre_completo')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="asunto" class="form-label">Asunto</label>
+                        <textarea name="asunto" class="form-control @error('asunto') is-invalid @enderror" 
+                                  rows="3" required>{{ old('asunto', $visita->asunto) }}</textarea>
+                        @error('asunto')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="localidad" class="form-label">Localidad</label>
+                        <input type="text" name="localidad" class="form-control @error('localidad') is-invalid @enderror" 
+                               value="{{ old('localidad', $visita->localidad) }}" required>
+                        @error('localidad')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="telefono" class="form-label">Teléfono</label>
+                        <input type="text" name="telefono" class="form-control @error('telefono') is-invalid @enderror" 
+                               value="{{ old('telefono', $visita->telefono) }}" required>
+                        @error('telefono')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        <button type="reset" class="btn btn-secondary me-md-2">
+                            <i class="bi bi-arrow-counterclockwise me-1"></i> Limpiar
+                        </button>
+                        <button type="submit" class="btn btn-edomex">
+                            <i class="bi bi-save me-1"></i> Guardar Cambios
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -488,24 +460,11 @@
 <!-- Bootstrap JS + Tooltip Init -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Inicializar tooltips y confirmaciones
+    // Inicializar tooltips
     document.addEventListener('DOMContentLoaded', function() {
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         tooltipTriggerList.forEach(function (tooltipTriggerEl) {
             new bootstrap.Tooltip(tooltipTriggerEl, { trigger: 'hover' });
-        });
-        
-        // Animación para las filas de la tabla
-        const rows = document.querySelectorAll('.table-modern tbody tr');
-        rows.forEach((row, index) => {
-            row.style.opacity = '0';
-            row.style.transform = 'translateY(20px)';
-            row.style.transition = 'all 0.5s ease';
-            
-            setTimeout(() => {
-                row.style.opacity = '1';
-                row.style.transform = 'translateY(0)';
-            }, 100 * index);
         });
     });
 </script>

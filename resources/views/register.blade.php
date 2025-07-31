@@ -6,310 +6,188 @@
   <title>Registro - Abasto y Comercio | Gobierno del Estado de México</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <style>
     :root {
-      --edomex-green: rgba(241, 9, 9, 0.68);
-      --edomex-green-dark: rgb(224, 10, 10);
+      --edomex-green:rgb(236, 29, 29);
+      --edomex-green-dark:rgba(233, 9, 9, 0.93);
+      --edomex-green-light: #f9e8e8;
+      --edomex-white: #FFFFFF;
       --edomex-gold: #FFD700;
-      --bg-gradient: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 50%, #e1f4e1 100%);
-      --form-bg: rgba(255, 255, 255, 0.95);
-      --input-border: #e1e8e1;
-      --text-color: #2c3e50;
-      --text-muted: #6c757d;
-      --shadow-light: 0 4px 20px rgba(23, 193, 36, 0.1);
-      --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
-      --radius: 20px;
-      --radius-small: 12px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+      --edomex-gray: #6c757d;
+      --edomex-light: #f8f9fa;
+      --shadow-light: 0 2px 15px rgba(0,0,0,0.08);
+      --shadow-medium: 0 8px 30px rgba(0,0,0,0.12);
+      --shadow-heavy: 0 15px 50px rgba(0,0,0,0.15);
+      --gradient-bg: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      --gradient-green: linear-gradient(135deg, var(--edomex-green) 0%, var(--edomex-green-dark) 100%);
     }
 
     body {
+      background: var(--edomex-light);
       font-family: 'Inter', sans-serif;
-      background: var(--bg-gradient);
+      line-height: 1.6;
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
       position: relative;
-      overflow-x: hidden;
+      color: #333;
     }
 
-    body::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(23,193,36,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
-      opacity: 0.5;
-    }
-
-    .form-container {
-      background: var(--form-bg);
-      backdrop-filter: blur(20px);
-      padding: 50px 40px;
-      border-radius: var(--radius);
+    .header-gobierno {
+      background: var(--gradient-green);
+      border-bottom: 4px solid var(--edomex-gold);
       box-shadow: var(--shadow-medium);
-      width: 100%;
-      max-width: 480px;
-      position: relative;
-      z-index: 2;
-      border: 1px solid rgba(23, 193, 36, 0.1);
-      animation: slideUp 0.8s ease-out;
-      margin-top: 60px; /* Espacio para el botón en móvil */
-    }
-
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .form-container::before {
-      content: '';
-      position: absolute;
+      position: sticky;
       top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--edomex-green) 0%, var(--edomex-gold) 100%);
-      border-radius: var(--radius) var(--radius) 0 0;
+      z-index: 1030;
     }
 
-    .header-section {
-      text-align: center;
-      margin-bottom: 40px;
+    .header-container {
+      padding: 0.5rem 2rem;
     }
 
     .logo-container {
-      margin-bottom: 20px;
-    }
-
-    .logo-icon {
-      width: 80px;
-      height: 80px;
-      background: linear-gradient(135deg, var(--edomex-green) 0%, var(--edomex-green-dark) 100%);
-      border-radius: 50%;
       display: flex;
       align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px;
-      box-shadow: var(--shadow-light);
-      animation: pulse 2s infinite;
+      gap: 1rem;
     }
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
+    .logo {
+      height: 60px;
+      filter: brightness(0) invert(1);
+      transition: transform 0.3s ease;
     }
 
-    .logo-icon i {
-      font-size: 2.5rem;
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .header-titles {
       color: white;
     }
 
-    h2 {
-      margin-bottom: 8px;
-      color: var(--text-color);
-      font-size: 28px;
+    .header-title {
+      font-size: 1.4rem;
       font-weight: 700;
-      background: linear-gradient(135deg, var(--edomex-green) 0%, var(--edomex-green-dark) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      margin-bottom: 0.2rem;
+      letter-spacing: 0.5px;
     }
 
-    .subtitle {
-      color: var(--text-muted);
-      font-size: 16px;
+    .header-subtitle {
+      font-size: 0.85rem;
+      opacity: 0.9;
       font-weight: 400;
-      margin-bottom: 30px;
     }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+    .main-content {
+      padding: 2rem 0 4rem;
+      position: relative;
+      z-index: 1;
     }
 
-    .input-group {
+    .card-modern {
+      border: none;
+      border-radius: 16px;
+      box-shadow: var(--shadow-medium);
+      overflow: hidden;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .card-header-modern {
+      background: white;
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
       position: relative;
     }
 
-    .input-group i {
+    .card-header-modern::after {
+      content: '';
       position: absolute;
-      left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--edomex-green);
-      font-size: 1.1rem;
-      z-index: 2;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-green);
     }
 
-    input {
-      width: 100%;
-      padding: 16px 16px 16px 50px;
-      border: 2px solid var(--input-border);
-      border-radius: var(--radius-small);
-      font-size: 16px;
-      font-weight: 400;
-      outline: none;
+    .card-title-modern {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--edomex-green-dark);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .btn-edomex {
+      background: var(--gradient-green);
+      color: white;
+      font-weight: 600;
+      padding: 0.7rem 1.5rem;
+      border-radius: 50px;
+      box-shadow: var(--shadow-light);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
       transition: all 0.3s ease;
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(10px);
+      border: none;
     }
 
-    input:focus {
-      border-color: var(--edomex-green);
-      box-shadow: 0 0 0 4px rgba(23, 193, 36, 0.1);
-      background: white;
+    .btn-edomex:hover {
+      background: var(--edomex-green-dark);
+      color: white;
       transform: translateY(-2px);
+      box-shadow: var(--shadow-medium);
     }
 
-    input::placeholder {
-      color: var(--text-muted);
-      font-weight: 400;
+    .btn-edomex-outline {
+      border: 2px solid var(--edomex-green);
+      color: var(--edomex-green);
+      background: white;
+      font-weight: 600;
+      padding: 0.7rem 1.5rem;
+      border-radius: 50px;
+      box-shadow: var(--shadow-light);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-edomex-outline:hover {
+      background: var(--edomex-green);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .form-control {
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      border: 1px solid #dee2e6;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: var(--edomex-green);
+      box-shadow: 0 0 0 0.25rem rgba(224, 10, 10, 0.25);
+    }
+
+    .input-group-text {
+      background-color: var(--edomex-green-light);
+      border-color: #dee2e6;
+      color: var(--edomex-green);
     }
 
     .password-toggle {
-      position: absolute;
-      right: 16px;
-      top: 50%;
-      transform: translateY(-50%);
       cursor: pointer;
-      color: var(--text-muted);
-      font-size: 1.1rem;
+      color: var(--edomex-gray);
       transition: color 0.3s ease;
     }
 
     .password-toggle:hover {
       color: var(--edomex-green);
-    }
-
-    button {
-      background: linear-gradient(135deg, var(--edomex-green) 0%, var(--edomex-green-dark) 100%);
-      color: white;
-      padding: 18px;
-      font-size: 16px;
-      font-weight: 600;
-      border: none;
-      border-radius: var(--radius-small);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      box-shadow: var(--shadow-light);
-    }
-
-    button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.5s;
-    }
-
-    button:hover::before {
-      left: 100%;
-    }
-
-    button:hover {
-      background: linear-gradient(135deg, var(--edomex-green-dark) 0%, var(--edomex-green) 100%);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-medium);
-    }
-
-    button:active {
-      transform: translateY(0);
-    }
-
-    .login-link {
-      margin-top: 30px;
-      text-align: center;
-      padding: 20px;
-      background: rgba(23, 193, 36, 0.05);
-      border-radius: var(--radius-small);
-      border: 1px solid rgba(23, 193, 36, 0.1);
-    }
-
-    .login-link a {
-      color: var(--edomex-green);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 16px;
-      transition: all 0.3s ease;
-    }
-
-    .login-link a:hover {
-      color: var(--edomex-green-dark);
-      text-decoration: underline;
-    }
-
-    .back-btn {
-      position: fixed; /* Cambiado de absolute a fixed */
-      top: 20px;
-      left: 20px;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(23, 193, 36, 0.2);
-      border-radius: 50px;
-      padding: 12px 20px;
-      text-decoration: none;
-      color: var(--edomex-green);
-      font-weight: 500;
-      transition: all 0.3s ease;
-      z-index: 10;
-    }
-
-    .back-btn:hover {
-      background: white;
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-light);
-      color: var(--edomex-green-dark);
-    }
-
-    .back-btn i {
-      margin-right: 8px;
-    }
-
-    .alert {
-      background: linear-gradient(135deg, #f8d7da 0%, #f5c2c7 100%);
-      color: #721c24;
-      padding: 16px 20px;
-      border-radius: var(--radius-small);
-      font-size: 14px;
-      margin-bottom: 20px;
-      border: 1px solid #f1aeb5;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      animation: slideDown 0.5s ease-out;
-    }
-
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
 
     .strength-meter {
@@ -332,98 +210,174 @@
       font-weight: 500;
     }
 
+    .alert {
+      background: linear-gradient(135deg, #f8d7da 0%, #f5c2c7 100%);
+      color: #721c24;
+      padding: 16px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      border: 1px solid #f1aeb5;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .wave-bg {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 20vh;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="%23e00a0a"></path><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".1" fill="%23e00a0a"></path><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" opacity=".05" fill="%23e00a0a"></path></svg>');
+      background-size: cover;
+      background-repeat: no-repeat;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .login-link {
+      margin-top: 30px;
+      text-align: center;
+      padding: 20px;
+      background: rgba(224, 10, 10, 0.05);
+      border-radius: 8px;
+      border: 1px solid rgba(224, 10, 10, 0.1);
+    }
+
+    .login-link a {
+      color: var(--edomex-green);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .login-link a:hover {
+      color: var(--edomex-green-dark);
+      text-decoration: underline;
+    }
+
     @media (max-width: 768px) {
-      .form-container {
-        padding: 40px 30px;
-        max-width: 100%;
-        margin: 60px 20px 20px; /* Ajuste del margen superior */
+      .header-container {
+        padding: 0.5rem 1rem;
       }
-
-      h2 {
-        font-size: 24px;
+      
+      .card-title-modern {
+        font-size: 1.2rem;
       }
-
-      /* Eliminamos el estilo que cambiaba la posición del botón */
-      /* El botón ahora permanece fixed en la parte superior */
+      
+      .card-header-modern {
+        padding: 1rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <a href="{{ route('welcome') }}" class="back-btn">
-    <i class="bi bi-arrow-left"></i> Volver al inicio
-  </a>
-
-  <div class="form-container">
-    <div class="header-section">
-      <div class="logo-container">
-        <div class="logo-icon">
-          <i class="bi bi-person-plus"></i>
+<!-- Header Mejorado -->
+<header class="header-gobierno">
+    <div class="container-fluid header-container">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="logo-container">
+                <img src="https://lerma.gob.mx/wp-content/uploads/logo_lerma.svg" alt="Gobierno del Estado de México" class="logo" />
+                <div class="header-titles d-none d-md-block">
+                    <div class="header-title">Sistema de Gestión</div>
+                    <div class="header-subtitle">Dirección de Abasto y Comercio</div>
+                </div>
+            </div>
         </div>
-      </div>
-      <h2>Crear Cuenta</h2>
-      <p class="subtitle">Regístrate para acceder al sistema de gestión</p>
     </div>
+</header>
 
-    @if($errors->any())
-      <div class="alert">
-        <i class="bi bi-exclamation-triangle"></i>
-        <div>
-          @foreach($errors->all() as $error)
-            <div>{{ $error }}</div>
-          @endforeach
-        </div>
-      </div>
-    @endif
+<!-- Fondo de onda decorativo -->
+<div class="wave-bg"></div>
 
-    <form method="POST" action="/register" id="registerForm">
-      @csrf
-      
-      <div class="input-group">
-        <i class="bi bi-person"></i>
-        <input type="text" name="name" placeholder="Nombre completo" required value="{{ old('name') }}" />
-      </div>
-
-      <div class="input-group">
-        <i class="bi bi-envelope"></i>
-        <input type="email" name="email" placeholder="Correo electrónico" required value="{{ old('email') }}" />
-      </div>
-
-      <div class="input-group">
-        <i class="bi bi-lock"></i>
-        <input type="password" name="password" id="password" placeholder="Contraseña" required />
-        <i class="bi bi-eye password-toggle" onclick="togglePassword('password', this)"></i>
-        <div class="strength-meter">
-          <div class="strength-fill" id="strengthFill"></div>
-        </div>
-        <div class="strength-text" id="strengthText"></div>
-      </div>
-
-      <div class="input-group">
-        <i class="bi bi-lock-fill"></i>
-        <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Confirmar contraseña" required />
-        <i class="bi bi-eye password-toggle" onclick="togglePassword('password_confirmation', this)"></i>
-      </div>
-
-      <button type="submit">
-        <i class="bi bi-person-plus me-2"></i>
+<!-- Contenido Principal -->
+<div class="container main-content">
+  <div class="card card-modern">
+    <div class="card-header-modern">
+      <h2 class="card-title-modern">
+        <i class="bi bi-person-plus"></i>
         Crear Cuenta
-      </button>
-    </form>
+      </h2>
+    </div>
+    
+    <div class="card-body">
+      @if($errors->any())
+        <div class="alert">
+          <i class="bi bi-exclamation-triangle"></i>
+          <div>
+            @foreach($errors->all() as $error)
+              <div>{{ $error }}</div>
+            @endforeach
+          </div>
+        </div>
+      @endif
 
-    <div class="login-link">
-      ¿Ya tienes cuenta? <a href="/login">Inicia sesión aquí</a>
+      <form method="POST" action="/register" id="registerForm">
+        @csrf
+        
+        <div class="mb-3">
+          <label for="name" class="form-label">Nombre completo</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+            <input type="text" class="form-control" name="name" id="name" placeholder="Nombre completo" required value="{{ old('name') }}" />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo electrónico</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input type="email" class="form-control" name="email" id="email" placeholder="Correo electrónico" required value="{{ old('email') }}" />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required />
+            <span class="input-group-text password-toggle" onclick="togglePassword('password', this)"><i class="bi bi-eye"></i></span>
+          </div>
+          <div class="strength-meter mt-2">
+            <div class="strength-fill" id="strengthFill"></div>
+          </div>
+          <div class="strength-text" id="strengthText"></div>
+        </div>
+
+        <div class="mb-4">
+          <label for="password_confirmation" class="form-label">Confirmar contraseña</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+            <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirmar contraseña" required />
+            <span class="input-group-text password-toggle" onclick="togglePassword('password_confirmation', this)"><i class="bi bi-eye"></i></span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-edomex w-100">
+          <i class="bi bi-person-plus me-2"></i>
+          Crear Cuenta
+        </button>
+      </form>
+
+      <div class="login-link">
+        ¿Ya tienes cuenta? <a href="/login">Inicia sesión aquí</a>
+      </div>
     </div>
   </div>
+</div>
 
-  <script>
+<script>
     function togglePassword(inputId, icon) {
       const input = document.getElementById(inputId);
       const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
       input.setAttribute('type', type);
       
-      icon.classList.toggle('bi-eye');
-      icon.classList.toggle('bi-eye-slash');
+      const eyeIcon = icon.querySelector('i');
+      eyeIcon.classList.toggle('bi-eye');
+      eyeIcon.classList.toggle('bi-eye-slash');
     }
 
     // Password strength checker
@@ -458,11 +412,11 @@
           break;
         case 4:
           text = 'Fuerte';
-          color = 'rgba(241, 9, 9, 0.68)';
+          color = '#e00a0a';
           break;
         case 5:
           text = 'Muy fuerte';
-          color = 'rgb(224, 10, 10)';
+          color = '#c00808';
           break;
       }
       
@@ -488,7 +442,14 @@
     document.querySelector('input[name="name"]').addEventListener('input', function(e) {
       e.target.value = e.target.value.replace(/\b\w/g, l => l.toUpperCase());
     });
-  </script>
+</script>
 
+<script>
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    });
+</script>
 </body>
 </html>

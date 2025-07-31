@@ -4,25 +4,28 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+// Clase anónima que extiende Migration
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Ejecuta la migración (agrega la columna 'archivado' a la tabla 'expediente')
      */
     public function up(): void
     {
         Schema::table('expediente', function (Blueprint $table) {
+            // Agrega una columna booleana llamada 'archivado' con valor por defecto en false
             $table->boolean('archivado')->default(false);
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Revierte la migración (elimina la columna 'archivado')
      */
     public function down(): void
     {
-        Schema::table('expedientes', function (Blueprint $table) {
-            //
+        Schema::table('expediente', function (Blueprint $table) {
+            // Elimina la columna 'archivado' si existe
+            $table->dropColumn('archivado');
         });
     }
 };

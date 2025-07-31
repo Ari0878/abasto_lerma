@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Escudo_de_Lerma_%28estado_de_Mexico%29.svg/1076px-Escudo_de_Lerma_%28estado_de_Mexico%29.svg.png" type="image/png">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Dashboard - Abasto y Comercio | Gobierno del Estado de México</title>
 
@@ -12,18 +13,18 @@
 
     <style>
         :root {
-            --edomex-green: rgba(241, 9, 9, 0.68);
-            --edomex-green-dark: rgb(224, 10, 10);
-            --edomex-green-light: #e8f5e8;
-            --edomex-red: #E4002B;
-            --edomex-white: #FFFFFF;
-            --edomex-gold: #FFD700;
-            --edomex-gray: #6c757d;
-            --shadow-light: 0 2px 15px rgba(0,0,0,0.08);
-            --shadow-medium: 0 8px 30px rgba(0,0,0,0.12);
-            --shadow-heavy: 0 15px 50px rgba(0,0,0,0.15);
-            --gradient-bg: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            --gradient-green: linear-gradient(135deg, var(--edomex-green) 0%, var(--edomex-green-dark) 100%);
+      --edomex-green:rgb(236, 29, 29);
+      --edomex-green-dark:rgba(233, 9, 9, 0.93);
+      --edomex-green-light: #f9e8e8;
+      --edomex-white: #FFFFFF;
+      --edomex-gold: #FFD700;
+      --edomex-gray: #6c757d;
+      --edomex-light: #f8f9fa;
+      --shadow-light: 0 2px 15px rgba(0,0,0,0.08);
+      --shadow-medium: 0 8px 30px rgba(0,0,0,0.12);
+      --shadow-heavy: 0 15px 50px rgba(0,0,0,0.15);
+      --gradient-bg: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      --gradient-green: linear-gradient(135deg, var(--edomex-green) 0%, var(--edomex-green-dark) 100%);
         }
 
         * {
@@ -31,54 +32,37 @@
         }
 
         body {
-            background: var(--gradient-bg);
+            background: var(--edomex-light);
             font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             min-height: 100vh;
             position: relative;
+            color: #333;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(23,193,36,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            pointer-events: none;
-            z-index: 0;
-        }
-
+        /* ===== HEADER MEJORADO ===== */
         .header-gobierno {
             background: var(--gradient-green);
             border-bottom: 4px solid var(--edomex-gold);
             box-shadow: var(--shadow-medium);
-            position: relative;
-            z-index: 1000;
-            overflow: visible; /* Cambiado para permitir que el dropdown se muestre */
-        }
-
-        .header-gobierno::before {
-            content: '';
-            position: absolute;
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="hexagons" width="50" height="43.4" patternUnits="userSpaceOnUse"><polygon points="25,0 50,14.4 50,28.9 25,43.4 0,28.9 0,14.4" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23hexagons)"/></svg>');
-            opacity: 0.3;
+            z-index: 1030;
         }
 
-        .header-content {
-            position: relative;
-            z-index: 2;
-            overflow: visible; /* Asegura que no corte el dropdown */
+        .header-container {
+            padding: 0.5rem 2rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
         .logo {
-            height: 70px;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+            height: 60px;
+            filter: brightness(0) invert(1);
             transition: transform 0.3s ease;
         }
 
@@ -86,101 +70,116 @@
             transform: scale(1.05);
         }
 
-        .navbar-dark .navbar-nav .nav-link {
+        .header-titles {
             color: white;
-            font-weight: 500;
-            margin-left: 1rem;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            transition: all 0.3s ease;
         }
 
-        .navbar-dark .navbar-nav .nav-link:hover {
+        .header-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+            letter-spacing: 0.5px;
+        }
+
+        .header-subtitle {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        /* Navbar mejorado */
+        .navbar-nav .nav-item {
+            margin: 0 0.3rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: white;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            background: rgba(255,255,255,0.15);
             color: var(--edomex-gold);
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
+        }
+
+        .navbar-nav .nav-link i {
+            font-size: 1.1rem;
+        }
+
+        /* Dropdown mejorado */
+        .dropdown-toggle::after {
+            margin-left: 0.5rem;
+            vertical-align: middle;
         }
 
         .dropdown-menu {
             border: none;
-            box-shadow: var(--shadow-medium);
-            border-radius: 15px;
+            border-radius: 10px;
+            box-shadow: var(--shadow-heavy);
             padding: 0.5rem 0;
-            backdrop-filter: blur(20px);
-            background: rgba(255,255,255,0.95);
-            z-index: 2000; /* Aseguramos que esté por encima de otros elementos */
+            margin-top: 0.5rem;
         }
 
         .dropdown-item {
-            padding: 0.75rem 1.5rem;
-            transition: all 0.3s ease;
-            border-radius: 10px;
-            margin: 0 0.5rem;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
         }
 
         .dropdown-item:hover {
             background: var(--edomex-green-light);
             color: var(--edomex-green-dark);
-            transform: translateX(5px);
         }
 
+        .dropdown-divider {
+            margin: 0.5rem 0;
+        }
+
+        /* ===== CONTENIDO PRINCIPAL ===== */
         .main-content {
+            padding: 2rem 0 4rem;
             position: relative;
             z-index: 1;
-            padding-top: 2rem;
         }
 
+        /* Sección Hero mejorada */
         .hero-section {
-            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,249,250,0.95) 100%);
-            backdrop-filter: blur(20px);
-            padding: 4rem 2rem;
-            border-radius: 25px;
-            box-shadow: var(--shadow-heavy);
-            text-align: center;
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow-medium);
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(23,193,36,0.1);
-            margin-bottom: 3rem;
+            border: none;
         }
 
         .hero-section::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(23,193,36,0.05) 0%, transparent 70%);
-            animation: float 8s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.03"><path fill="%23e00a0a" d="M30,10L50,30L70,10L90,30L70,50L90,70L70,90L50,70L30,90L10,70L30,50L10,30L30,10Z"/></svg>');
+            background-size: cover;
+            z-index: 0;
         }
 
         .hero-content {
             position: relative;
             z-index: 2;
-        }
-
-        .hero-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 1.5rem;
-            background: var(--gradient-green);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--edomex-gray);
-            font-weight: 400;
-            margin-bottom: 2rem;
-            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         .user-badge {
@@ -188,65 +187,132 @@
             align-items: center;
             background: var(--gradient-green);
             color: white;
-            padding: 0.75rem 1.5rem;
+            padding: 0.7rem 1.5rem;
             border-radius: 50px;
             font-weight: 600;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             box-shadow: var(--shadow-light);
+            border: 2px solid rgba(255,255,255,0.3);
         }
 
         .user-badge i {
-            margin-right: 0.5rem;
-            font-size: 1.2rem;
+            margin-right: 0.7rem;
+            font-size: 1.3rem;
         }
 
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--edomex-green-dark);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--edomex-gray);
+            font-weight: 400;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        /* Tarjetas de estadísticas mejoradas - NUEVO ESTILO */
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            margin: 2.5rem 0;
+        }
+
+        .stats-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            max-width: 1200px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow-light);
+            border-top: 4px solid var(--edomex-green);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            width: 200px;
+            flex: 0 0 auto;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.03"><path fill="%23e00a0a" d="M30,10L50,30L70,10L90,30L70,50L90,70L70,90L50,70L30,90L10,70L30,50L10,30L30,10Z"/></svg>');
+            background-size: 200px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--edomex-green);
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .stat-label {
+            color: var(--edomex-gray);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+        }
+
+        /* Botón principal mejorado */
         .btn-edomex {
             background: var(--gradient-green);
             color: white;
             font-weight: 600;
-            padding: 1rem 2rem;
+            padding: 1rem 2.5rem;
             border-radius: 50px;
             border: none;
             font-size: 1.1rem;
             box-shadow: var(--shadow-light);
             position: relative;
             overflow: hidden;
-            text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-edomex::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn-edomex:hover::before {
-            left: 100%;
+            gap: 0.7rem;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255,255,255,0.3);
         }
 
         .btn-edomex:hover {
-            background: linear-gradient(135deg, var(--edomex-green-dark) 0%, var(--edomex-green) 100%);
             transform: translateY(-3px);
             box-shadow: var(--shadow-medium);
             color: white;
+            background: linear-gradient(135deg, var(--edomex-green-dark) 0%, var(--edomex-green) 100%);
         }
 
+        .btn-edomex i {
+            font-size: 1.2rem;
+        }
+
+        /* Sección de búsqueda mejorada */
         .search-container {
-            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,249,250,0.95) 100%);
-            backdrop-filter: blur(20px);
-            padding: 3rem 2rem;
-            border-radius: 25px;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
             box-shadow: var(--shadow-medium);
-            margin-top: 3rem;
-            border: 1px solid rgba(23,193,36,0.1);
+            margin-top: 2rem;
             position: relative;
             overflow: hidden;
         }
@@ -258,18 +324,18 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, var(--edomex-green) 0%, var(--edomex-gold) 100%);
+            background: var(--gradient-green);
         }
 
         .search-title {
-            font-size: 1.75rem;
-            font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 2rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--edomex-green-dark);
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            gap: 1rem;
         }
 
         .search-icon-bg {
@@ -287,70 +353,54 @@
 
         .form-control {
             border: 2px solid #e9ecef;
-            border-radius: 15px;
-            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
             font-size: 1.1rem;
             transition: all 0.3s ease;
-            background: rgba(255,255,255,0.8);
-            backdrop-filter: blur(10px);
         }
 
         .form-control:focus {
             border-color: var(--edomex-green);
-            box-shadow: 0 0 0 0.25rem rgba(23,193,36,0.15);
-            background: white;
-            transform: translateY(-2px);
+            box-shadow: 0 0 0 0.25rem rgba(224, 10, 10, 0.15);
         }
 
         .input-group-text {
             background: var(--gradient-green);
             color: white;
             border: none;
-            border-radius: 15px 0 0 15px;
+            border-radius: 12px 0 0 12px;
             font-size: 1.2rem;
-            padding: 1rem 1.25rem;
+            padding: 1rem 1.5rem;
         }
 
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
+        /* Grid de características mejorado */
+            .feature-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 2rem;
+                margin-top: 3rem;
+                justify-content: center; /* Esto centrará el grid completo */
+                width: 100%;
+            }
 
-        .feature-box {
-            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,249,250,0.95) 100%);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(23,193,36,0.1);
-            padding: 2.5rem 2rem;
-            border-radius: 20px;
-            box-shadow: var(--shadow-light);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-        }
-
-        .feature-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--gradient-green);
-            transform: scaleY(0);
-            transition: transform 0.3s ease;
-        }
-
-        .feature-box:hover::before {
-            transform: scaleY(1);
-        }
+            .feature-box {
+                background: white;
+                padding: 2rem 1.8rem;
+                border-radius: 16px;
+                box-shadow: var(--shadow-light);
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+                text-align: center;
+                border-top: 4px solid var(--edomex-green);
+                max-width: 350px;
+                width: 100%;
+                margin: 0 auto; /* Centrado horizontal cuando sea necesario */
+            }
 
         .feature-box:hover {
             transform: translateY(-10px);
             box-shadow: var(--shadow-heavy);
-            border-color: rgba(23,193,36,0.2);
         }
 
         .feature-icon {
@@ -366,6 +416,7 @@
             color: white;
             box-shadow: var(--shadow-light);
             transition: all 0.3s ease;
+            border: 3px solid rgba(255,255,255,0.3);
         }
 
         .feature-box:hover .feature-icon {
@@ -375,8 +426,8 @@
 
         .feature-title {
             font-size: 1.5rem;
-            font-weight: 600;
-            color: #2c3e50;
+            font-weight: 700;
+            color: var(--edomex-green-dark);
             margin-bottom: 1rem;
         }
 
@@ -384,20 +435,22 @@
             color: var(--edomex-gray);
             margin-bottom: 1.5rem;
             line-height: 1.6;
+            font-size: 0.95rem;
         }
 
         .btn-feature {
             background: transparent;
             color: var(--edomex-green);
             border: 2px solid var(--edomex-green);
-            padding: 0.75rem 1.5rem;
+            padding: 0.7rem 1.5rem;
             border-radius: 50px;
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.7rem;
+            font-size: 0.95rem;
         }
 
         .btn-feature:hover {
@@ -407,59 +460,24 @@
             box-shadow: var(--shadow-light);
         }
 
+        /* Alertas mejoradas */
         .alert {
-            border-radius: 15px;
+            border-radius: 12px;
             border: none;
-            padding: 1.25rem 1.5rem;
+            padding: 1.2rem 1.5rem;
             font-weight: 500;
             box-shadow: var(--shadow-light);
-            backdrop-filter: blur(10px);
         }
 
         .alert-danger {
-            background: linear-gradient(135deg, rgba(248, 215, 218, 0.9) 0%, rgba(245, 194, 199, 0.9) 100%);
+            background: #f8d7da;
             color: #721c24;
-            border: 1px solid rgba(220, 53, 69, 0.2);
+            border-left: 4px solid #dc3545;
         }
 
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,249,250,0.9) 100%);
-            backdrop-filter: blur(20px);
-            padding: 1.5rem;
-            border-radius: 15px;
-            text-align: center;
-            border: 1px solid rgba(23,193,36,0.1);
-            box-shadow: var(--shadow-light);
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-medium);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--edomex-green);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            color: var(--edomex-gray);
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
+        /* Animaciones */
         .fade-in {
-            animation: fadeInUp 0.8s ease-out;
+            animation: fadeInUp 0.8s ease-out forwards;
         }
 
         @keyframes fadeInUp {
@@ -473,81 +491,144 @@
             }
         }
 
+        /* Efecto de onda en el fondo */
+        .wave-bg {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 20vh;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="%23e00a0a"></path><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".1" fill="%23e00a0a"></path><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" opacity=".05" fill="%23e00a0a"></path></svg>');
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .header-container {
+                padding: 0.5rem 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-section {
+                padding: 2.5rem 1.5rem;
+            }
+            
+            .search-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .stat-card {
+                width: 180px;
+            }
+        }
+
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 2rem;
             }
             
-            .hero-section {
-                padding: 2rem 1rem;
-                margin-bottom: 2rem;
+            .hero-subtitle {
+                font-size: 1.1rem;
             }
             
-            .search-container {
-                padding: 2rem 1rem;
-                margin-top: 2rem;
+            .stat-card {
+                width: 160px;
+                padding: 1.2rem;
             }
+            
+    .feature-grid {
+        grid-template-columns: minmax(280px, 350px); /* Fuerza una sola columna */
+    }
+        }
 
-            .feature-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-                margin-top: 2rem;
+        @media (max-width: 576px) {
+            .header-title {
+                font-size: 1.2rem;
             }
-
-            .feature-box {
-                padding: 2rem 1.5rem;
+            
+            .header-subtitle {
+                font-size: 0.75rem;
             }
-
-            .stats-row {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
+            
+            .logo {
+                height: 50px;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .stat-card {
+                width: 140px;
+                padding: 1rem;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .search-title {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
             }
         }
 
         @media (max-width: 480px) {
             .stats-row {
-                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .stat-card {
+                width: 100%;
+                max-width: 180px;
             }
         }
     </style>
 </head>
 <body>
 
+<!-- Header Mejorado -->
 <header class="header-gobierno">
-    <div class="header-content">
-        <div class="container-fluid py-3 px-4 d-flex align-items-center justify-content-between flex-wrap">
-            <div class="d-flex align-items-center">
-                <img src="https://lerma.gob.mx/wp-content/uploads/logo_lerma.svg" alt="Gobierno del Estado de México" class="logo me-3" />
-                <div class="d-none d-md-block text-white">
-                    <h1 class="h4 mb-1 fw-bold">Sistema de Gestión</h1>
-                    <small class="opacity-75">Dirección de Abasto y Comercio</small>
+    <div class="container-fluid header-container">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="logo-container">
+                <img src="https://lerma.gob.mx/wp-content/uploads/logo_lerma.svg" alt="Gobierno del Estado de México" class="logo" />
+                <div class="header-titles d-none d-md-block">
+                    <div class="header-title">Sistema de Gestión de Expedientes</div>
+                    <div class="header-subtitle">Dirección de Abasto y Comercio</div>
                 </div>
             </div>
 
-            <nav class="navbar navbar-expand-md navbar-dark">
+            <nav class="navbar navbar-expand-md navbar-dark p-0">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navGob" aria-controls="navGob" aria-expanded="false" aria-label="Menú">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navGob">
-                    <ul class="navbar-nav ms-auto align-items-center">
-                        <li class="nav-item dropdown ms-3">
+                <div class="collapse navbar-collapse justify-content-end" id="navGob">
+                    <ul class="navbar-nav align-items-center">
+                        <li class="nav-item dropdown ms-2">
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <div class="d-flex align-items-center">
-                                    <div class="me-2">
-                                        <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
-                                    </div>
-                                    <div class="text-start">
-                                        <div class="fw-bold">{{ auth()->user()->name }}</div>
-                                        <small class="opacity-75">{{ ucfirst(auth()->user()->role) }}</small>
-                                    </div>
-                                </div>
+                                <i class="bi bi-person-circle me-1"></i>
+                                <span class="d-none d-lg-inline">{{ auth()->user()->name }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li>
-                                    <a href="{{ route('profile.edit') }}" class="dropdown-item">
-                                        <i class="bi bi-person-gear me-2"></i> Editar perfil
-                                    </a>
+                                <li class="px-3 py-2 text-center border-bottom">
+                                    <strong>{{ auth()->user()->name }}</strong><br>
+                                    <small class="text-muted">{{ ucfirst(auth()->user()->role) }}</small>
                                 </li>
+                                @if(auth()->user()->role !== 'administrador')
+                                    <li>
+                                        <a href="{{ route('profile.edit') }}" class="dropdown-item">
+                                            <i class="bi bi-person-gear me-2"></i> Editar perfil
+                                        </a>
+                                    </li>
+                                @endif
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}">
@@ -566,17 +647,21 @@
     </div>
 </header>
 
+<!-- Fondo de onda decorativo -->
+<div class="wave-bg"></div>
+
+<!-- Contenido Principal -->
 <div class="container main-content">
-    <!-- Bienvenida -->
+    <!-- Sección de Bienvenida -->
     <section class="hero-section fade-in">
         <div class="hero-content">
-            <div class="user-badge">
+            <div class="user-badge fade-in" style="animation-delay: 0.1s">
                 <i class="bi bi-person-check"></i>
                 Bienvenido, {{ auth()->user()->name }}
             </div>
             
-            <h2 class="hero-title">Sistema de Gestión de Expedientes</h2>
-            <p class="hero-subtitle">
+            <h1 class="hero-title fade-in" style="animation-delay: 0.2s">Sistema de Gestión de Expedientes</h1>
+            <p class="hero-subtitle fade-in" style="animation-delay: 0.3s">
                 @if(auth()->user()->role === 'administrador')
                     Administra, consulta y gestiona las regiones, expedientes y usuarios relacionados con el abasto y comercio en el Municipio de Lerma.
                 @else
@@ -586,29 +671,38 @@
 
             {{-- Estadísticas rápidas --}}
             @if(auth()->user()->role === 'administrador')
-                <div class="stats-row">
-                    <div class="stat-card">
-                        <div class="stat-number">Más de 3000</div>
-                        <div class="stat-label">Expedientes</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">8</div>
-                        <div class="stat-label">Regiones</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">Indefinidos</div>
-                        <div class="stat-label">Usuarios</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">98%</div>
-                        <div class="stat-label">Eficiencia</div>
+                <div class="stats-container">
+                    <div class="stats-row">
+                        <div class="stat-card fade-in" style="animation-delay: 0.4s">
+                            <div class="stat-number">{{ $expedientes->count() }}</div>
+                            <div class="stat-label">Expedientes</div>
+                        </div>
+                        <div class="stat-card fade-in" style="animation-delay: 0.5s">
+                            <div class="stat-number">8</div>
+                            <div class="stat-label">Regiones</div>
+                        </div>
+                        <div class="stat-card fade-in" style="animation-delay: 0.6s">
+                            <div class="stat-number">{{ $usuarios->count() }}</div>
+                            <div class="stat-label">Usuarios</div>
+                        </div>
+                        <div class="stat-card fade-in" style="animation-delay: 0.7s">
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label">Eficiencia</div>
+                        </div>
+                        <div class="stat-card fade-in" style="animation-delay: 0.75s">
+                            <div class="stat-number">{{ $visitas->count() }}</div>
+                            <div class="stat-label">Visitas Registradas</div>
+                            <i class="bi bi-person-lines-fill position-absolute bottom-0 end-0 text-danger opacity-10 pe-3 pb-2" style="font-size: 3rem;"></i>
+                        </div>
                     </div>
                 </div>
 
-                <a href="{{ route('expediente') }}" class="btn-edomex">
-                    <i class="bi bi-folder2-open"></i>
-                    Gestionar Expedientes
-                </a>
+                <div class="text-center fade-in" style="animation-delay: 0.8s">
+                    <a href="{{ route('expediente') }}" class="btn-edomex">
+                        <i class="bi bi-folder2-open"></i>
+                        Gestionar Expedientes
+                    </a>
+                </div>
             @endif
         </div>
     </section>
@@ -662,40 +756,63 @@
 
     {{-- Funcionalidades para administrador --}}
     @if(auth()->user()->role === 'administrador')
-        <div class="feature-grid fade-in">
-            <div class="feature-box">
+        <div class="feature-grid">
+            <div class="feature-box fade-in" style="animation-delay: 0.3s">
                 <div class="feature-icon">
                     <i class="bi bi-geo-alt"></i>
                 </div>
                 <h5 class="feature-title">Gestión de Regiones</h5>
-                <p class="feature-description">Consulta y administra las regiones comerciales registradas en el sistema.</p>
+                <p class="feature-description">Consulta y administra las regiones comerciales registradas en el sistema con información detallada y actualizada.</p>
                 <a href="{{ route('region') }}" class="btn-feature">
                     <i class="bi bi-arrow-right"></i>
-                    Acceder
+                    Acceder a Regiones
                 </a>
             </div>
 
-            <div class="feature-box">
+            <div class="feature-box fade-in" style="animation-delay: 0.4s">
                 <div class="feature-icon">
                     <i class="bi bi-bar-chart-line"></i>
                 </div>
                 <h5 class="feature-title">Estadísticas y Reportes</h5>
-                <p class="feature-description">Visualiza datos e indicadores relevantes para la toma de decisiones estratégicas.</p>
+                <p class="feature-description">Visualiza datos e indicadores relevantes para la toma de decisiones estratégicas con gráficos interactivos.</p>
                 <a href="{{ route('estadisticas') }}" class="btn-feature">
                     <i class="bi bi-arrow-right"></i>
-                    Explorar
+                    Ver Estadísticas
                 </a>
             </div>
 
-            <div class="feature-box">
+            <div class="feature-box fade-in" style="animation-delay: 0.5s">
                 <div class="feature-icon">
                     <i class="bi bi-people"></i>
                 </div>
                 <h5 class="feature-title">Administración de Usuarios</h5>
-                <p class="feature-description">Consulta y gestiona los administradores dados de alta en el sistema.</p>
+                <p class="feature-description">Gestiona los usuarios del sistema con permisos diferenciados según sus roles y responsabilidades.</p>
                 <a href="{{ route('users.index') }}" class="btn-feature">
                     <i class="bi bi-arrow-right"></i>
-                    Ver Usuarios
+                    Administrar Usuarios
+                </a>
+            </div>
+            
+            <div class="feature-box fade-in" style="animation-delay: 0.6s">
+                <div class="feature-icon">
+                    <i class="bi bi-cash-stack"></i>
+                </div>
+                <h5 class="feature-title">Gestión de Ingresos</h5>
+                <p class="feature-description">Consulta y administra los ingresos registrados en el sistema con reportes detallados por períodos.</p>
+                <a href="{{ route('ingresos.index') }}" class="btn-feature">
+                    <i class="bi bi-arrow-right"></i>
+                    Ver Ingresos
+                </a>
+            </div>
+            <div class="feature-box fade-in" style="animation-delay: 0.7s">
+                <div class="feature-icon">
+                    <i class="bi bi-clipboard-check"></i>
+                </div>
+                <h5 class="feature-title">Control de Visitas</h5>
+                <p class="feature-description">Consulta y gestiona los registros de visitas realizadas a los comercios y puntos de abasto en el municipio.</p>
+                <a href="{{ route('visitas.index') }}" class="btn-feature">
+                    <i class="bi bi-arrow-right"></i>
+                    Ver Visitas
                 </a>
             </div>
         </div>
@@ -708,16 +825,28 @@
 <script>
     // Animaciones de entrada
     document.addEventListener('DOMContentLoaded', function() {
-        const elements = document.querySelectorAll('.fade-in');
-        elements.forEach((el, index) => {
-            el.style.animationDelay = `${index * 0.2}s`;
-        });
-
         // Auto-focus en el input de búsqueda si existe
         const searchInput = document.querySelector('input[name="numero_expediente"]');
         if (searchInput) {
             searchInput.focus();
         }
+
+        // Efecto de hover mejorado para las tarjetas
+        document.querySelectorAll('.feature-box').forEach(box => {
+            box.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
+            
+            box.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Tooltips
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
     });
 
     // Prevenir cache en navegación
@@ -749,17 +878,6 @@
         });
     }
 
-    // Efectos de hover mejorados para las tarjetas
-    document.querySelectorAll('.feature-box').forEach(box => {
-        box.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px) scale(1.02)';
-        });
-        
-        box.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-    });
-
     // Animación de contadores para las estadísticas
     function animateCounters() {
         const counters = document.querySelectorAll('.stat-number');
@@ -776,7 +894,7 @@
                 } else {
                     counter.textContent = counter.textContent.replace(/\d+/, Math.floor(current));
                 }
-            }, 30);
+            }, 20);
         });
     }
 
@@ -794,43 +912,6 @@
     if (statsRow) {
         observer.observe(statsRow);
     }
-
-    // Efecto de partículas en el fondo (opcional)
-    function createParticle() {
-        const particle = document.createElement('div');
-        particle.style.cssText = `
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            background: rgba(23,193,36,0.3);
-            border-radius: 50%;
-            pointer-events: none;
-            animation: particle-float 4s linear infinite;
-            left: ${Math.random() * 100}vw;
-            top: 100vh;
-            z-index: 0;
-        `;
-        
-        const style = document.createElement('style');
-        if (!document.querySelector('#particle-style')) {
-            style.id = 'particle-style';
-            style.textContent = `
-                @keyframes particle-float {
-                    to {
-                        transform: translateY(-100vh) rotate(360deg);
-                        opacity: 0;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
-        }
-        
-        document.body.appendChild(particle);
-        setTimeout(() => particle.remove(), 4000);
-    }
-
-    // Crear partículas ocasionalmente
-    setInterval(createParticle, 3000);
 </script>
 
 </body>

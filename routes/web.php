@@ -10,9 +10,12 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\IngresoController;
+use App\Http\Controllers\VisitaController;
+use App\Models\Visita;
+use App\Models\Expediente;
+use App\Models\Usuario;
 
-
-// Página pública
+// Página pública (inicio)
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
@@ -23,32 +26,35 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'showRegister']);
 Route::post('/register', [AuthController::class, 'register']);
 
-// Logout
+// Cierre de sesión (logout)
 Route::post('/logout', function (Request $request) {
     Auth::logout();
 
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
+    $request->session()->invalidate(); // Invalida sesión
+    $request->session()->regenerateToken(); // Regenera token CSRF
 
-    return redirect()->route('login');
+    return redirect()->route('login'); // Redirige a login
 })->name('logout');
 
-
-// Redirección según rol (vista común adaptada)
+// Redirección común post-login (según rol)
 Route::middleware(['auth'])->get('/dashboard', function () {
-    return view('admin.welcome'); // Vista adaptada con contenido por rol
+    $visitas = Visita::all(); // Lista completa de visitas
+    $expedientes = Expediente::all(); // Lista completa de expedientes
+    $usuarios = Usuario::all(); // Lista completa de usuarios
+    return view('admin.welcome', compact('visitas', 'expedientes', 'usuarios'));
 })->name('dashboard');
 
-
+// ==========================
 // RUTAS PARA ADMINISTRADORES
-Route::middleware(['auth', 'nocache', 'role:administrador'])->group(function (){
+// ==========================
+Route::middleware(['auth', 'nocache', 'role:administrador'])->group(function () {
 
-    // Vista de bienvenida del admin (puede eliminarse si no se usa)
+    // Redirección del administrador al dashboard
     Route::get('/admin', function () {
         return redirect()->route('dashboard');
     })->name('admin.welcome');
 
-    // Rutas para el perfil del administrador
+    // Perfil
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
@@ -76,11 +82,12 @@ Route::middleware(['auth', 'nocache', 'role:administrador'])->group(function (){
     Route::get('/expedientes/archivados', [ExpedienteController::class, 'expediente_archivados'])->name('expediente_archivados');
     Route::get('/expedientes/busqueda', [ExpedienteController::class, 'expediente_ajax'])->name('expediente_ajax');
     Route::get('/reporte-expedientes/excel', [ExpedienteController::class, 'exportarReporteGeneral']);
+    Route::get('/expedientes/archivo/{filename}', [ExpedienteController::class, 'mostrarArchivo'])->name('expedientes.archivo');
 
     // Estadísticas
     Route::get('/estadisticas', [EstadisticasController::class, 'index'])->name('estadisticas');
 
-    // Usuarios
+    // Gestión de usuarios
     Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [AdminUserController::class, 'create'])->name('users.create');
     Route::post('/users', [AdminUserController::class, 'store'])->name('users.store');
@@ -88,26 +95,37 @@ Route::middleware(['auth', 'nocache', 'role:administrador'])->group(function (){
     Route::put('/users/{user}', [AdminUserController::class, 'update'])->name('users.update');
     Route::delete('/users/{user}', [AdminUserController::class, 'destroy'])->name('users.destroy');
 
+    // Ingresos
     Route::get('/ingresos', [IngresoController::class, 'index'])->name('ingresos.index');
     Route::get('/ingresos/create', [IngresoController::class, 'create'])->name('ingresos.create');
     Route::post('/ingresos', [IngresoController::class, 'store'])->name('ingresos.store');
     Route::get('/ingresos/comparar', [IngresoController::class, 'comparar'])->name('ingresos.comparar');
+
+    // Visitas
+    Route::get('/visitas', [VisitaController::class, 'index'])->name('visitas.index');
+    Route::get('/visitas/crear', [VisitaController::class, 'create'])->name('visitas.create');
+    Route::get('/visitas/{id}/edit', [VisitaController::class, 'edit'])->name('visitas.edit');
+    Route::put('/visitas/{id}', [VisitaController::class, 'update'])->name('visitas.update');
+    Route::post('/visitas', [VisitaController::class, 'store'])->name('visitas.store');
+    Route::delete('/visitas/{visita}', [VisitaController::class, 'destroy'])->name('visitas.destroy');
+    Route::get('/visitas/exportar-csv', [VisitaController::class, 'exportarCSV'])->name('visitas.exportar.csv');
 });
 
-
+// ==================================
 // RUTAS PARA USUARIOS REGULARES
+// (y también para administradores)
+// ==================================
 Route::middleware(['auth', 'nocache', 'role:usuario,administrador'])->group(function () {
+
+    // Vista de bienvenida para el rol usuario
     Route::get('/usuario', function () {
         return view('admin.welcome');
     })->name('usuario.welcome');
 
-    // Rutas para el perfil del usuario
+    // Perfil
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
-    // Ruta para buscar expedientes
+    // Búsqueda de expedientes
     Route::get('/expediente/search', [ExpedienteController::class, 'search'])->name('expediente.search');
-
 });
-
-

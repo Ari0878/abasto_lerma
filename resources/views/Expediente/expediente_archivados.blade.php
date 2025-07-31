@@ -1,181 +1,552 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expedientes Archivados</title>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Escudo_de_Lerma_%28estado_de_Mexico%29.svg/1076px-Escudo_de_Lerma_%28estado_de_Mexico%29.svg.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Expedientes Archivados - Abasto y Comercio</title>
 
-    <!-- Bootstrap y Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Bootstrap CSS & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --edomex-green: rgb(224, 10, 10);
-            --edomex-red: #E4002B;
-            --edomex-white: #FFFFFF;
-            --edomex-gold: #FFD700;
-        }
-        
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --edomex-green:rgb(236, 29, 29);
+      --edomex-green-dark:rgba(233, 9, 9, 0.93);
+      --edomex-green-light: #f9e8e8;
+      --edomex-white: #FFFFFF;
+      --edomex-gold: #FFD700;
+      --edomex-gray: #6c757d;
+      --edomex-light: #f8f9fa;
+      --shadow-light: 0 2px 15px rgba(0,0,0,0.08);
+      --shadow-medium: 0 8px 30px rgba(0,0,0,0.12);
+      --shadow-heavy: 0 15px 50px rgba(0,0,0,0.15);
+      --gradient-bg: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      --gradient-green: linear-gradient(135deg, var(--edomex-green) 0%, var(--edomex-green-dark) 100%);
         }
 
-        .header {
-            background: linear-gradient(135deg, var(--edomex-green) 0%, rgba(241, 9, 9, 0.68) 100%);
-            color: white;
-            padding: 1rem 0;
-            border-bottom: 5px solid var(--edomex-gold);
+        * {
+            transition: all 0.3s ease;
+        }
+
+        body {
+            background: var(--edomex-light);
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            color: #333;
+        }
+
+        /* ===== HEADER MEJORADO ===== */
+        .header-gobierno {
+            background: var(--gradient-green);
+            border-bottom: 4px solid var(--edomex-gold);
+            box-shadow: var(--shadow-medium);
+            position: sticky;
+            top: 0;
+            z-index: 1030;
+        }
+
+        .header-container {
+            padding: 0.5rem 2rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
         .logo {
             height: 60px;
-            margin-right: 15px;
+            filter: brightness(0) invert(1);
+            transition: transform 0.3s ease;
         }
 
-        .title-container {
-            border-left: 3px solid var(--edomex-gold);
-            padding-left: 15px;
+        .logo:hover {
+            transform: scale(1.05);
         }
 
-        .card-shadow {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            border: none;
-        }
-
-        .table-header {
-            background-color: var(--edomex-green);
+        .header-titles {
             color: white;
         }
 
+        .header-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+            letter-spacing: 0.5px;
+        }
+
+        .header-subtitle {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        /* Navbar mejorado */
+        .navbar-nav .nav-item {
+            margin: 0 0.3rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: white;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            background: rgba(255,255,255,0.15);
+            color: var(--edomex-gold);
+        }
+
+        .navbar-nav .nav-link i {
+            font-size: 1.1rem;
+        }
+
+        /* Dropdown mejorado */
+        .dropdown-toggle::after {
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .dropdown-menu {
+            border: none;
+            border-radius: 10px;
+            box-shadow: var(--shadow-heavy);
+            padding: 0.5rem 0;
+            margin-top: 0.5rem;
+        }
+
+        .dropdown-item {
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .dropdown-item:hover {
+            background: var(--edomex-green-light);
+            color: var(--edomex-green-dark);
+        }
+
+        .dropdown-divider {
+            margin: 0.5rem 0;
+        }
+
+        /* ===== CONTENIDO PRINCIPAL ===== */
+        .main-content {
+            padding: 2rem 0 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Card mejorada */
+        .card-modern {
+            border: none;
+            border-radius: 16px;
+            box-shadow: var(--shadow-medium);
+            overflow: hidden;
+        }
+
+        .card-header-modern {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .card-header-modern::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-green);
+        }
+
+        .card-title-modern {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--edomex-green-dark);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        /* Botón mejorado */
         .btn-edomex {
-            background-color: var(--edomex-green);
+            background: var(--gradient-green);
             color: white;
+            font-weight: 600;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
             border: none;
+            box-shadow: var(--shadow-light);
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255,255,255,0.3);
         }
 
         .btn-edomex:hover {
-            background-color: rgb(224, 10, 10);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
             color: white;
+            background: linear-gradient(135deg, var(--edomex-green-dark) 0%, var(--edomex-green) 100%);
         }
 
-        .btn-outline-success {
-            border-color: var(--edomex-green);
+        .btn-edomex-outline {
+            border: 2px solid var(--edomex-green);
             color: var(--edomex-green);
+            background: white;
+            font-weight: 600;
         }
 
-        .btn-outline-success:hover {
-            background-color: var(--edomex-green);
+        .btn-edomex-outline:hover {
+            background: var(--edomex-green);
             color: white;
+        }
+
+        /* Tabla mejorada */
+        .table-modern {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: var(--shadow-light);
+        }
+
+        .table-modern thead {
+            background: var(--gradient-green);
+        }
+
+        .table-modern thead th {
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-bottom: none;
+        }
+
+        .table-modern tbody tr {
+            transition: background-color 0.3s ease;
+        }
+
+        .table-modern tbody tr:hover {
+            background-color: var(--edomex-green-light);
+        }
+
+        .table-modern tbody td {
+            padding: 1rem;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            vertical-align: middle;
+        }
+
+        /* Badges */
+        .badge-completo {
+            background-color: #30B43B;
+            color: white;
+        }
+        .badge-incompleto {
+            background-color: #E4002B;
+            color: white;
+        }
+        .badge-sin-estado {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        /* Botones de acción */
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            margin: 0 2px;
+            background-color: #f8f9fa;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .action-btn:hover {
+            background-color: #e9ecef;
+            border-color: #ced4da;
+            transform: translateY(-2px);
+        }
+
+        /* Alertas mejoradas */
+        .alert {
+            border-radius: 12px;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-weight: 500;
+            box-shadow: var(--shadow-light);
+        }
+
+        /* Efecto de onda en el fondo */
+        .wave-bg {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 20vh;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="%23e00a0a"></path><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".1" fill="%23e00a0a"></path><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" opacity=".05" fill="%23e00a0a"></path></svg>');
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .header-container {
+                padding: 0.5rem 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .table-modern thead th,
+            .table-modern tbody td {
+                padding: 0.8rem;
+            }
+            
+            .action-btn {
+                width: 32px;
+                height: 32px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-title {
+                font-size: 1.2rem;
+            }
+            
+            .header-subtitle {
+                font-size: 0.75rem;
+            }
+            
+            .logo {
+                height: 50px;
+            }
+            
+            .card-title-modern {
+                font-size: 1.2rem;
+            }
+            
+            .btn-edomex {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Encabezado institucional -->
-    <header class="header mb-4">
-        <div class="container">
-            <div class="d-flex align-items-center">
-                <img src="https://lerma.gob.mx/wp-content/uploads/logo_lerma.svg" alt="Gobierno del Estado de México" class="logo">
-                <div class="title-container">
-                    <h1 class="h4 mb-0">Sistema de Gestión de Expedientes</h1>
-                    <small>Abasto y comercio</small>
+
+<!-- Header Mejorado -->
+<header class="header-gobierno">
+    <div class="container-fluid header-container">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="logo-container">
+                <img src="https://lerma.gob.mx/wp-content/uploads/logo_lerma.svg" alt="Gobierno del Estado de México" class="logo" />
+                <div class="header-titles d-none d-md-block">
+                    <div class="header-title">Sistema de Gestión de Expedientes</div>
+                    <div class="header-subtitle">Dirección de Abasto y Comercio</div>
                 </div>
+            </div>
+
+            <nav class="navbar navbar-expand-md navbar-dark p-0">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navGob" aria-controls="navGob" aria-expanded="false" aria-label="Menú">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navGob">
+                    <ul class="navbar-nav align-items-center">
+                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.welcome') }}"><i class="bi bi-house-door"></i> Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('expediente') }}"><i class="bi bi-folder"></i> Expediente</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="{{ route('expediente_archivados') }}"><i class="bi bi-archive"></i> Archivados</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('region') }}"><i class="bi bi-geo-alt"></i> Regiones</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('estadisticas') }}"><i class="bi bi-bar-chart"></i> Estadísticas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}"><i class="bi bi-people"></i> Usuarios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('ingresos.index') }}"><i class="bi bi-cash-stack"></i> Ingresos</a></li>
+                        
+                        <li class="nav-item dropdown ms-2">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-circle me-1"></i>
+                                <span class="d-none d-lg-inline">{{ auth()->user()->name }}</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li class="px-3 py-2 text-center border-bottom">
+                                    <strong>{{ auth()->user()->name }}</strong><br>
+                                    <small class="text-muted">{{ ucfirst(auth()->user()->role) }}</small>
+                                </li>
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item">
+                                            <i class="bi bi-box-arrow-right me-2"></i> Cerrar sesión
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!-- Fondo de onda decorativo -->
+<div class="wave-bg"></div>
+
+<!-- Contenido Principal -->
+<div class="container main-content">
+    <!-- Tarjeta contenedora -->
+    <div class="card card-modern mb-4">
+        <div class="card-header-modern">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="card-title-modern">
+                    <i class="bi bi-archive-fill"></i>
+                    Expedientes Archivados
+                </h2>
+                <small class="text-muted">Consulta y recuperación de documentos archivados</small>
             </div>
         </div>
-    </header>
+        
+        <div class="card-body">
+        <a href="{{ route('expediente') }}" class="btn btn-edomex-outline mb-3">
+    <i class="bi bi-arrow-left-circle"></i> Regresar a Expedientes
+</a>
 
-    <div class="container mb-5">
-        <div class="card card-shadow">
-            <div class="card-header bg-white border-bottom">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h2 class="h5 mb-0 text-primary">Expedientes Archivados</h2>
-                        <small class="text-muted">Consulta y recuperación de documentos archivados</small>
-                    </div>
-                    <a href="{{ route('expediente') }}" class="btn btn-outline-success">
-                        <i class="bi bi-arrow-left"></i> Volver al listado
-                    </a>
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="bi bi-check-circle-fill me-2"></i> {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-            </div>
-            <div class="card-body">
-                @if(session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <i class="bi bi-check-circle-fill me-2"></i> {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
+            @endif
 
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
-                        <thead class="table-header">
+            <!-- Tabla responsiva -->
+            <div class="table-responsive">
+                <table class="table-modern mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Folio</th>
+                            <th>Nombre</th>
+                            <th>Giro</th>
+                            <th>Tipo</th>
+                            <th>Región</th>
+                            <th>Estado</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($expedientes as $expediente)
                             <tr>
-                                <th>#</th>
-                                <th>Folio</th>
-                                <th>Nombre</th>
-                                <th>Giro</th>
-                                <th>Tipo</th>
-                                <th>Región</th>
-                                <th>Estado</th>
-                                <th class="text-center">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($expedientes as $expediente)
-                                <tr>
-                                    <td>{{ $expediente->id }}</td>
-                                    <td>{{ $expediente->folio }}</td>
-                                    <td>{{ $expediente->ap }} {{ $expediente->am }} {{ $expediente->nombre }}</td>
-                                    <td>{{ $expediente->giro }}</td>
-                                    <td>{{ $expediente->tipo_expe }}</td>
-                                    <td>
-                                        @if($expediente->region)
-                                            <span class="badge bg-light text-dark">
-                                                {{ $expediente->region->numero_region }} - {{ $expediente->region->nombre }}
-                                            </span>
-                                        @else
-                                            <span class="text-muted">Sin región</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if($expediente->estado == 'Completo')
-                                            <span class="badge bg-success">Completo</span>
-                                        @elseif($expediente->estado == 'Incompleto')
-                                            <span class="badge bg-danger">Incompleto</span>
-                                        @else
-                                            <span class="badge bg-secondary">Sin estado</span>
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
+                                <td>{{ $expediente->id }}</td>
+                                <td class="fw-bold">{{ $expediente->folio }}</td>
+                                <td>{{ $expediente->ap }} {{ $expediente->am }} {{ $expediente->nombre }}</td>
+                                <td>{{ $expediente->giro }}</td>
+                                <td>{{ $expediente->tipo_expe }}</td>
+                                <td>
+                                    @if($expediente->region)
+                                        <span class="badge bg-light text-dark">
+                                            {{ $expediente->region->numero_region }} - {{ $expediente->region->nombre }}
+                                        </span>
+                                    @else
+                                        <span class="text-muted">Sin región</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($expediente->estado == 'Completo')
+                                        <span class="badge badge-completo rounded-pill">Completo</span>
+                                    @elseif($expediente->estado == 'Incompleto')
+                                        <span class="badge badge-incompleto rounded-pill">Incompleto</span>
+                                    @else
+                                        <span class="badge badge-sin-estado rounded-pill">Sin estado</span>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center">
                                         <a href="{{ route('expediente_desarchivar', $expediente->id) }}"
-                                           class="btn btn-sm btn-outline-success"
+                                           class="action-btn btn-outline-success"
                                            data-bs-toggle="tooltip" title="Desarchivar">
-                                            <i class="bi bi-arrow-bar-up"></i> 
+                                            <i class="bi bi-arrow-bar-up"></i>
                                         </a>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="8" class="text-center text-muted">No hay expedientes archivados.</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="8" class="text-center text-muted py-4">
+                                    <i class="bi bi-folder-x fs-4 d-block mb-2"></i>
+                                    No hay expedientes archivados
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
 
-                <div class="mt-3">
-                    {{ $expedientes->links() }}
-                </div>
+            <!-- Paginación -->
+            <div class="mt-4">
+                {{ $expedientes->links() }}
             </div>
         </div>
     </div>
-    <script>    window.addEventListener('pageshow', function(event) {
+</div>
+
+<!-- Bootstrap JS + Tooltip Init -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Inicializar tooltips
+    document.addEventListener('DOMContentLoaded', function() {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+            new bootstrap.Tooltip(tooltipTriggerEl, { trigger: 'hover' });
+        });
+        
+        // Animación para las filas de la tabla
+        const rows = document.querySelectorAll('.table-modern tbody tr');
+        rows.forEach((row, index) => {
+            row.style.opacity = '0';
+            row.style.transform = 'translateY(20px)';
+            row.style.transition = 'all 0.5s ease';
+            
+            setTimeout(() => {
+                row.style.opacity = '1';
+                row.style.transform = 'translateY(0)';
+            }, 100 * index);
+        });
+    });
+</script>
+<script>
+    window.addEventListener('pageshow', function(event) {
         if (event.persisted) {
             window.location.reload();
         }
-    });</script>
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    });
+</script>
 </body>
 </html>

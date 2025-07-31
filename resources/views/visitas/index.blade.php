@@ -2,19 +2,17 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Escudo_de_Lerma_%28estado_de_Mexico%29.svg/1076px-Escudo_de_Lerma_%28estado_de_Mexico%29.svg.png" type="image/png">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Regiones - Gobierno del Estado de México</title>
+    <title>Visitas - Abasto y Comercio</title>
 
     <!-- Bootstrap CSS & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    
     <style>
         :root {
-            --edomex-green:rgb(236, 29, 29);
+      --edomex-green:rgb(236, 29, 29);
       --edomex-green-dark:rgba(233, 9, 9, 0.93);
       --edomex-green-light: #f9e8e8;
       --edomex-white: #FFFFFF;
@@ -315,6 +313,46 @@
             z-index: 0;
             pointer-events: none;
         }
+        /* Paginación empresarial */
+        .pagination {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.4rem;
+            margin-top: 1.5rem;
+        }
+
+        .pagination .page-item {
+            transition: all 0.3s ease;
+        }
+
+        .pagination .page-link {
+            color: var(--edomex-green-dark);
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 50px;
+            padding: 0.45rem 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .pagination .page-item:hover .page-link {
+            background-color: var(--edomex-green-light);
+            color: var(--edomex-green-dark);
+            border-color: var(--edomex-green-dark);
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: var(--edomex-green-dark);
+            color: white;
+            border-color: var(--edomex-green-dark);
+            font-weight: 600;
+        }
+
+        .pagination .page-item.disabled .page-link {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
 
         /* Responsive */
         @media (max-width: 992px) {
@@ -379,12 +417,13 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navGob">
                     <ul class="navbar-nav align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.welcome') }}"><i class="bi bi-house-door"></i> Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.welcome') }}"><i class="bi bi-house-door"></i> Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('expediente') }}"><i class="bi bi-folder"></i> Expediente</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('region') }}"><i class="bi bi-geo-alt"></i> Regiones</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('estadisticas') }}"><i class="bi bi-bar-chart"></i> Estadísticas</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}"><i class="bi bi-people"></i> Usuarios</a></li>
                         <li class="nav-item"><a class="nav-link active" href="{{ route('visitas.index') }}"><i class="bi bi-person-lines-fill"></i> Visitas</a></li>
+                        
                         <li class="nav-item dropdown ms-2">
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-person-circle me-1"></i>
@@ -411,26 +450,25 @@
         </div>
     </div>
 </header>
-
 <!-- Fondo de onda decorativo -->
 <div class="wave-bg"></div>
 
-<!-- Contenido Principal -->
+<!-- Contenido principal -->
 <div class="container main-content">
-    <!-- Tarjeta contenedora -->
-    <div class="card card-modern mb-4">
-        <div class="card-header-modern">
-            <div class="d-flex justify-content-between align-items-center">
-                <h2 class="card-title-modern">
-                    <i class="bi bi-geo-alt-fill"></i>
-                    Regiones Registradas
-                </h2>
-                <a href="{{ route('region_alta') }}" class="btn-edomex">
-                    <i class="bi bi-plus-lg me-1"></i> Nueva Región
-                </a>
-            </div>
+    <div class="card card-modern">
+        <div class="card-header-modern d-flex justify-content-between align-items-center">
+            <h2 class="card-title-modern">
+                <i class="bi bi-people-fill"></i> Lista de Visitas
+            </h2>
+            <a href="{{ route('visitas.create') }}" class="btn-edomex">
+                <i class="bi bi-plus-circle"></i> Registrar nueva visita
+            </a>
+            <a href="{{ route('visitas.exportar.csv') }}" class="btn btn-success">
+    Descargar CSV
+</a>
+
         </div>
-        
+
         <div class="card-body">
             @if(session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -439,60 +477,125 @@
                 </div>
             @endif
 
-            <!-- Tabla responsiva -->
+            <!-- Formulario de búsqueda -->
+            <form method="GET" action="{{ route('visitas.index') }}" class="row g-2 align-items-center mb-4">
+                <div class="col-md-8">
+                    <input type="text" name="buscar" class="form-control" placeholder="Buscar por nombre, asunto, localidad o teléfono..." value="{{ request('buscar') }}" />
+                </div>
+                <div class="col-md-4 d-flex gap-2">
+                    <button class="btn btn-edomex flex-grow-1" type="submit">
+                        <i class="bi bi-search"></i> Buscar
+                    </button>
+                    <a href="{{ route('visitas.index') }}" class="btn btn-outline-secondary flex-grow-1" title="Limpiar filtros">
+                        <i class="bi bi-x-circle"></i> Limpiar
+                    </a>
+                </div>
+            </form>
+
             <div class="table-responsive">
-                <table class="table-modern mb-0">
+                <table class="table-modern">
                     <thead>
                         <tr>
-                            <th class="text-center">#</th>
-                            <th>Número de Región</th>
-                            <th>Nombre</th>
-                            <th class="text-center">Acciones</th>
+                            <th><i class="bi bi-calendar-event"></i> Fecha</th>
+                            <th><i class="bi bi-person-circle"></i> Nombre Completo</th>
+                            <th><i class="bi bi-chat-dots"></i> Asunto</th>
+                            <th><i class="bi bi-geo-alt-fill"></i> Localidad</th>
+                            <th><i class="bi bi-telephone-fill"></i> Teléfono</th>
+                            <th class="text-center"><i class="bi bi-gear"></i> Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($regiones as $region)
-                            <tr>
-                                <td class="text-center">{{ $region->id }}</td>
-                                <td>{{ $region->numero_region }}</td>
-                                <td>{{ $region->nombre }}</td>
-                                <td class="text-center">
-                                    <div class="d-flex justify-content-center">
-                                        <a href="{{ route('region_detalle', ['id' => $region->id]) }}"
-                                           class="action-btn btn-outline-primary"
-                                           data-bs-toggle="tooltip" title="Ver detalles">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-                                        <a href="{{ route('region_editar', ['id' => $region->id]) }}"
-                                           class="action-btn btn-outline-warning mx-2"
-                                           data-bs-toggle="tooltip" title="Editar">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-                                        <a href="{{ route('region_borrar', ['id' => $region->id]) }}"
-                                           class="action-btn btn-outline-danger"
-                                           onclick="return confirm('¿Está seguro de eliminar esta región?')"
-                                           data-bs-toggle="tooltip" title="Eliminar">
+                        @forelse($visitas as $visita)
+                        <tr>
+                            <td>{{ $visita->fecha }}</td>
+                            <td>{{ $visita->nombre_completo }}</td>
+                            <td>{{ $visita->asunto }}</td>
+                            <td>{{ $visita->localidad }}</td>
+                            <td>{{ $visita->telefono }}</td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center">
+                                <a href="{{ route('visitas.edit', $visita->id) }}" class="btn btn-outline-primary mx-1" title="Editar">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                    <form action="{{ route('visitas.destroy', $visita->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" 
+                                                class="action-btn btn-outline-danger mx-1"
+                                                data-bs-toggle="tooltip" 
+                                                title="Eliminar"
+                                                onclick="return confirm('¿Está seguro de eliminar esta visita?')">
                                             <i class="bi bi-trash"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="6" class="text-center text-muted">No hay visitas registradas.</td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
+
+            @if($visitas->hasPages())
+                <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap">
+                    <div class="text-muted mb-2">
+                        Mostrando {{ $visitas->firstItem() }} a {{ $visitas->lastItem() }} de {{ $visitas->total() }} visitas
+                    </div>
+                    <nav>
+                        <ul class="pagination mb-0">
+                            {{-- Botón "Primera" --}}
+                            <li class="page-item {{ $visitas->onFirstPage() ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $visitas->url(1) }}" aria-label="Primera">« Primera</a>
+                            </li>
+
+                            {{-- Botón "Anterior" --}}
+                            <li class="page-item {{ $visitas->onFirstPage() ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $visitas->previousPageUrl() }}" aria-label="Anterior">‹</a>
+                            </li>
+
+                            {{-- Rango limitado: solo página anterior, actual y siguiente --}}
+                            @php
+                                $currentPage = $visitas->currentPage();
+                                $lastPage = $visitas->lastPage();
+                                $start = max(1, $currentPage - 1);
+                                $end = min($lastPage, $currentPage + 1);
+                            @endphp
+
+                            @for ($i = $start; $i <= $end; $i++)
+                                <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                    <a class="page-link" href="{{ $visitas->appends(request()->query())->url($i) }}">{{ $i }}</a>
+                                </li>
+                            @endfor
+
+                            {{-- Botón "Siguiente" --}}
+                            <li class="page-item {{ !$visitas->hasMorePages() ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $visitas->nextPageUrl() }}" aria-label="Siguiente">›</a>
+                            </li>
+
+                            {{-- Botón "Última" --}}
+                            <li class="page-item {{ $currentPage == $lastPage ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $visitas->url($lastPage) }}" aria-label="Última">Última »</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            @endif
         </div>
     </div>
 </div>
 
-<!-- Bootstrap JS + Tooltip Init -->
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Inicializar tooltips y confirmaciones
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
+        // Inicializar tooltips
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         tooltipTriggerList.forEach(function (tooltipTriggerEl) {
-            new bootstrap.Tooltip(tooltipTriggerEl, { trigger: 'hover' });
+            new bootstrap.Tooltip(tooltipTriggerEl);
         });
         
         // Animación para las filas de la tabla
@@ -501,7 +604,6 @@
             row.style.opacity = '0';
             row.style.transform = 'translateY(20px)';
             row.style.transition = 'all 0.5s ease';
-            
             setTimeout(() => {
                 row.style.opacity = '1';
                 row.style.transform = 'translateY(0)';
@@ -509,7 +611,6 @@
         });
     });
 </script>
-
 <script>
     window.addEventListener('pageshow', function(event) {
         if (event.persisted) {
